@@ -203,7 +203,7 @@ export function generateReply(input: string): string {
   const isPotensi = /(potensi|kelebihan|kelemahan|kekurangan|minat|bakat|analisis.*diri|mengenal diri)/;
 
   if (isGreeting.test(q)) {
-    return `Halo! 👋 Ada yang bisa Guru BK bantu?\n\nKamu bisa bertanya soal pilihan karier (kuliah/kerja/wirausaha), jurusan kuliah yang sesuai dengan SMK-mu, atau tips persiapan kerja & wawancara. Semangat! 😊`;
+    return `Halo! 👋 Ada yang bisa SataBot bantu terkait bimbingan karier atau pilihan kuliah/kerja?\n\nKamu bisa bertanya soal pilihan karier (kuliah/kerja/wirausaha), jurusan kuliah yang sesuai dengan SMK-mu, atau tips persiapan kerja & wawancara. Semangat! 😊`;
   }
 
   if (isThanks.test(q)) {

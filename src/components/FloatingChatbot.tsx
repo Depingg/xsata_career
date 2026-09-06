@@ -159,9 +159,9 @@ export function FloatingChatbot() {
               <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full bg-success ring-2 ring-white" />
             </span>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-bold">Guru BK AI</p>
+              <p className="truncate font-bold">SataBot</p>
               <p className="truncate text-xs text-white/80">
-                XSata BK Assistant • Online
+                Asisten Konsultasi Karier • Online
               </p>
             </div>
             <button
@@ -281,8 +281,8 @@ export function FloatingChatbot() {
         <button
           onClick={handleOpen}
           className="group relative flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-br from-primary via-purple-600 to-pink-500 text-white shadow-xl shadow-primary/40 transition-transform hover:scale-105 active:scale-95 sm:h-16 sm:w-16"
-          aria-label="Buka chat Guru BK AI"
-          title="Chat Guru BK AI"
+          aria-label="Buka chat SataBot"
+          title="Chat SataBot"
         >
           <span
             aria-hidden
