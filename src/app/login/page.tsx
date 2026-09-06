@@ -7,6 +7,12 @@ import { GraduationCap, UserCog, IdCard, LogIn } from "lucide-react";
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
+import {
+  buildSession,
+  persistSession,
+  readSession,
+  sessionDashboardPath,
+} from "@/lib/auth-store";
 
 type Role = "siswa" | "guru";
 
@@ -24,6 +30,11 @@ export default function LoginPage() {
 
     void Promise.resolve().then(() => {
       if (cancelled) return;
+      const existing = readSession();
+      if (existing) {
+        router.replace(sessionDashboardPath(existing));
+        return;
+      }
       const params = new URLSearchParams(window.location.search);
       const roleParam = params.get("role");
       if (roleParam === "gurubk" || roleParam === "guru" || roleParam === "guru-bk") {
@@ -36,7 +47,7 @@ export default function LoginPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [router]);
 
   const isSiswa = role === "siswa";
   const minLength = isSiswa ? MIN_NIS : MIN_NIP;
@@ -53,12 +64,10 @@ export default function LoginPage() {
     e.preventDefault();
     if (!canSubmit) return;
 
-    const session = isSiswa
-      ? { role: "siswa", nis: nis.trim(), nama: "Andini Putri" }
-      : { role: "guru", nip: nip.trim(), nama: "Bu Ratna Dewi" };
+    const session = buildSession(isSiswa ? "siswa" : "guru", value.trim());
 
-    sessionStorage.setItem("xsata-auth", JSON.stringify(session));
-    router.push(isSiswa ? "/" : "/admin");
+    persistSession(session);
+    router.push(sessionDashboardPath(session));
   }
 
   return (

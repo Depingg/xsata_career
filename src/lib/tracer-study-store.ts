@@ -11,7 +11,7 @@ export interface Alumni {
 }
 
 const seedData: Alumni[] = [
-  { id: 1, nama: "Andini Putri", angkatan: "2024", jurusan: "RPL", status: "Bekerja", tempat: "PT Teknologi Nusantara", tahun: "2025" },
+  { id: 1, nama: "Nanda", angkatan: "2024", jurusan: "TKJ", status: "Bekerja", tempat: "PT Teknologi Nusantara", tahun: "2025" },
   { id: 2, nama: "Rizky Pratama", angkatan: "2024", jurusan: "TKJ", status: "Melanjutkan", tempat: "Politeknik Negeri Bandung", tahun: "2025" },
   { id: 3, nama: "Siti Rahma", angkatan: "2024", jurusan: "Multimedia", status: "Bekerja", tempat: "Studio Kreatif ID", tahun: "2025" },
   { id: 4, nama: "Dimas Adit", angkatan: "2024", jurusan: "AKL", status: "Wirausaha", tempat: "Kedai Kopi Nusantara", tahun: "2025" },

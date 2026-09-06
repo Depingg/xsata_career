@@ -23,7 +23,7 @@ interface Message {
 }
 
 const suggestions = [
-  "Karier apa yang cocok untuk jurusan RPL?",
+  "Karier apa yang cocok untuk jurusan TKJ?",
   "Bagaimana persiapan interview kerja yang baik?",
   "Apakah saya harus lanjut kuliah atau bekerja?",
   "Rekomendasikan skill yang perlu saya pelajari",
@@ -32,7 +32,7 @@ const suggestions = [
 const initialMessages: Message[] = [
   {
     role: "ai",
-    text: "Halo Andini! 👋 Saya XSata AI, asisten karier pribadimu. Berdasarkan hasil asesmen dan profilmu, saya bisa membantu memetakan karier, menjawab pertanyaan seputar jurusan, hingga mempersiapkan wawancara kerja. Apa yang ingin kamu tanyakan hari ini?",
+    text: "Halo Nanda! 👋 Saya XSata AI, asisten karier pribadimu. Berdasarkan hasil asesmen dan profilmu, saya bisa membantu memetakan karier, menjawab pertanyaan seputar jurusan, hingga mempersiapkan wawancara kerja. Apa yang ingin kamu tanyakan hari ini?",
   },
 ];
 
@@ -66,7 +66,7 @@ export default function KonsultasiPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Andini Putri" userRole="Siswa SMK • RPL">
+    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
       <PageHeader
         title="Konsultasi Karier AI"
         description="Tanyakan apa saja tentang karier, jurusan, dan masa depanmu kepada asisten AI."

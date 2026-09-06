@@ -21,7 +21,7 @@ interface Student {
 }
 
 const students: Student[] = [
-  { name: "Andini Putri", kelas: "XII", jurusan: "RPL", progress: 85, status: "Aktif" },
+  { name: "Nanda", kelas: "XII", jurusan: "TKJ", progress: 85, status: "Aktif" },
   { name: "Rizky Pratama", kelas: "XII", jurusan: "TKJ", progress: 45, status: "Perlu perhatian" },
   { name: "Siti Rahma", kelas: "XI", jurusan: "MM", progress: 60, status: "Aktif" },
   { name: "Dimas Adit", kelas: "XII", jurusan: "AKL", progress: 90, status: "Aktif" },

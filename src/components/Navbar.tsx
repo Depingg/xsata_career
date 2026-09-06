@@ -7,6 +7,8 @@ import { Menu, X, ChevronDown, LayoutDashboard, LogOut } from "lucide-react";
 import { Logo } from "./Logo";
 import { Container } from "./ui/Container";
 import { LinkButton } from "./ui/Button";
+import { clearSession, readSession } from "@/lib/auth-store";
+import type { Session } from "@/lib/auth-store";
 
 const navLinks = [
   { label: "Beranda", href: "/" },
@@ -15,13 +17,6 @@ const navLinks = [
   { label: "Lowongan", href: "/lowongan" },
   { label: "Tentang", href: "/#tentang" },
 ];
-
-type Session = {
-  role: "siswa" | "guru";
-  nama?: string;
-  nis?: string;
-  nip?: string;
-};
 
 export function Navbar() {
   const router = useRouter();
@@ -34,12 +29,7 @@ export function Navbar() {
 
     void Promise.resolve().then(() => {
       if (cancelled) return;
-      try {
-        const raw = sessionStorage.getItem("xsata-auth");
-        setSession(raw ? (JSON.parse(raw) as Session) : null);
-      } catch {
-        setSession(null);
-      }
+      setSession(readSession());
     });
 
     return () => {
@@ -60,12 +50,8 @@ export function Navbar() {
 
   function handleLogout() {
     setMenuOpen(false);
-    try {
-      sessionStorage.removeItem("xsata-auth");
-    } catch {
-      /* abaikan jika storage tidak tersedia */
-    }
-    router.push("/");
+    clearSession();
+    router.push("/login");
   }
 
   return (

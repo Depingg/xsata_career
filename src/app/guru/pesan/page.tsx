@@ -16,7 +16,7 @@ interface Conversation {
 }
 
 const conversations: Conversation[] = [
-  { name: "Andini Putri", kelas: "XII RPL 1", message: "Terima kasih Bu atas bimbingannya!", time: "09:15", unread: false, active: true },
+  { name: "Nanda", kelas: "XII TKJ 1", message: "Terima kasih Bu atas bimbingannya!", time: "09:15", unread: false, active: true },
   { name: "Rizky Pratama", kelas: "XII TKJ 2", message: "Bu, saya mau konsultasi soal pilihan karier", time: "08:40", unread: true },
   { name: "Siti Rahma", kelas: "XI MM 1", message: "Apakah bisa pindah jadwal konseling?", time: "Kemarin", unread: true },
   { name: "Dimas Adit", kelas: "XII AKL 1", message: "Baik Bu, terima kasih sudah diingatkan.", time: "Kemarin", unread: false },
@@ -24,7 +24,7 @@ const conversations: Conversation[] = [
 
 const chatMessages = [
   { from: "them", text: "Selamat pagi Bu, terima kasih banyak atas bimbingannya kemarin!" },
-  { from: "me", text: "Selamat pagi Andini! Sama-sama. Bagaimana sudah mencoba latihan interview-nya?" },
+  { from: "me", text: "Selamat pagi Nanda! Sama-sama. Bagaimana sudah mencoba latihan interview-nya?" },
   { from: "them", text: "Sudah Bu, saya latihan dengan teman. Masih gugup tapi sudah lebih baik." },
   { from: "me", text: "Bagus sekali! Terus berlatih ya. Jangan lupa siapkan contoh portofolio. Semangat!" },
   { from: "them", text: "Terima kasih Bu! 🙏" },
@@ -103,7 +103,7 @@ export default function PesanPage() {
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">
-                    {selected ? selected.name : "Andini Putri"}
+                    {selected ? selected.name : "Nanda"}
                   </p>
                   <p className="text-xs text-success">Online</p>
                 </div>

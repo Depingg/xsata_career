@@ -1,9 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import type { ReactNode } from "react";
+import { clearSession, readSession } from "@/lib/auth-store";
+import type { Session } from "@/lib/auth-store";
 import {
   LayoutDashboard,
   Bot,
@@ -69,10 +71,34 @@ export function DashboardShell({
   children,
 }: DashboardShellProps) {
   const pathname = usePathname();
+  const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [session, setSession] = useState<Session | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      setSession(readSession());
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   const navItems =
     role === "siswa" ? siswaNav : role === "guru" ? guruNav : adminNav;
+
+  const sameRole = session?.role === role;
+  const displayName = sameRole && session?.nama ? session.nama : username;
+  const displayUserRole = sameRole && session?.userRole ? session.userRole : userRole;
+
+  function handleLogout() {
+    clearSession();
+    router.push("/login");
+  }
 
   return (
     <div className="flex min-h-screen bg-accent-soft">
@@ -95,7 +121,7 @@ export function DashboardShell({
 
         <div className="flex flex-col items-center gap-3 border-b border-border-light px-5 py-5">
           <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-lg font-bold text-white">
-            {username
+            {displayName
               .split(" ")
               .map((w) => w[0])
               .slice(0, 2)
@@ -103,8 +129,8 @@ export function DashboardShell({
               .toUpperCase()}
           </span>
           <div className="text-center">
-            <p className="font-semibold text-slate-900">{username}</p>
-            <p className="text-xs text-muted">{userRole}</p>
+            <p className="font-semibold text-slate-900">{displayName}</p>
+            <p className="text-xs text-muted">{displayUserRole}</p>
           </div>
         </div>
 
@@ -130,13 +156,13 @@ export function DashboardShell({
         </nav>
 
         <div className="border-t border-border-light p-3">
-          <Link
-            href="/"
-            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-accent hover:text-primary"
+          <button
+            onClick={handleLogout}
+            className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-accent hover:text-primary"
           >
             <LogOut className="h-5 w-5" />
             Keluar
-          </Link>
+          </button>
         </div>
       </aside>
 
@@ -175,7 +201,7 @@ export function DashboardShell({
               <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent">
                 <User className="h-4 w-4 text-primary" />
               </span>
-              <span className="text-sm font-medium text-slate-700">{username}</span>
+              <span className="text-sm font-medium text-slate-700">{displayName}</span>
               <ChevronDown className="h-4 w-4 text-slate-400" />
             </div>
           </div>

@@ -71,7 +71,7 @@ export default function AsesmenPage() {
 
   if (finished) {
     return (
-      <DashboardShell role="siswa" username="Andini Putri" userRole="Siswa SMK • RPL">
+      <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
         <PageHeader
           title="Hasil Asesmen Minat & Bakat"
           description="Berikut hasil analisis minat dan bakat berdasarkan jawabanmu."
@@ -151,7 +151,7 @@ export default function AsesmenPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Andini Putri" userRole="Siswa SMK • RPL">
+    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
       <PageHeader
         title="Asesmen Minat & Bakat"
         description="Jawab dengan jujur setiap pertanyaan untuk hasil yang akurat."

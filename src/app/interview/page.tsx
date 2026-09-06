@@ -24,10 +24,10 @@ import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 
 const student = {
-  name: "Andini Putri",
-  kelas: "XII RPL 1",
-  jurusan: "Rekayasa Perangkat Lunak (RPL)",
-  nis: "2024.0012",
+  name: "Nanda",
+  kelas: "XII TKJ 1",
+  jurusan: "Teknik Komputer dan Jaringan (TKJ)",
+  nis: "12345678",
 };
 
 const communicationScore = 82;
@@ -50,7 +50,7 @@ const skillGaps = [
 const aiRecommendations = [
   "Latih wawancara dengan metode STAR (Situation, Task, Action, Result) minimal 2 kali per minggu.",
   "Perkuat public speaking: biasakan presentasi di depan kelas dan rekam latihan untuk evaluasi.",
-  "Perbarui CV dan portofolio agar menonjolkan proyek RPL, sertakan tautan karya nyata.",
+  "Perbarui CV dan portofolio agar menonjolkan proyek TKJ, sertakan tautan karya nyata.",
   "Naikkan kemampuan teknis dengan kursus singkat Figma, HTML/CSS, dan dasar JavaScript.",
   "Perluas jaringan profesional: ikuti webinar industri dan bangun profil LinkedIn sejak dulu.",
 ];
@@ -227,7 +227,7 @@ export default function InterviewRaporPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Andini Putri" userRole="Siswa SMK • RPL">
+    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
       <PageHeader
         title="Rapor Kesiapan Kerja"
         description="Ringkasan hasil simulasi interview, skor komunikasi, analisis kesenjangan skill, dan rekomendasi perbaikan dari AI."

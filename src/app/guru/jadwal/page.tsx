@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 
 const schedule = [
   { time: "08:00", student: "Dimas Adit", topic: "Evaluasi Rencana Karier", room: "R. BK 1", status: "Selesai" },
-  { time: "09:30", student: "Andini Putri", topic: "Persiapan Interview Kerja", room: "R. BK 1", status: "Akan datang" },
+  { time: "09:30", student: "Nanda", topic: "Persiapan Interview Kerja", room: "R. BK 1", status: "Akan datang" },
   { time: "11:00", student: "Rizky Pratama", topic: "Pemetaan Karier", room: "R. BK 2", status: "Akan datang" },
   { time: "13:30", student: "Siti Rahma", topic: "Konsultasi Jurusan", room: "R. BK 1", status: "Akan datang" },
 ];

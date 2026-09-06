@@ -12,7 +12,7 @@ import {
   Star,
 } from "lucide-react";
 import { DashboardShell } from "@/components/DashboardShell";
-import { PageHeader } from "@/components/ui/PageHeader";
+import { StudentGreeting } from "@/components/StudentGreeting";
 import { StatCard } from "@/components/ui/StatCard";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -54,11 +54,8 @@ const consultations = [
 
 export default function StudentDashboardPage() {
   return (
-    <DashboardShell role="siswa" username="Andini Putri" userRole="Siswa SMK • RPL">
-      <PageHeader
-        title="Halo, Andini 👋"
-        description="Selamat datang kembali! Berikut ringkasan perkembangan kariermu."
-      />
+    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+      <StudentGreeting />
 
       {/* Welcome banner */}
       <div className="mb-6 overflow-hidden rounded-2xl bg-primary p-6 sm:p-8">

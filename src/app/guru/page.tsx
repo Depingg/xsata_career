@@ -25,14 +25,14 @@ export const metadata: Metadata = {
 };
 
 const recentStudents = [
-  { name: "Andini Putri", kelas: "XII RPL 1", status: "Selesai asesmen", progress: 85, tone: "success" as const, statusTone: "success" as const },
+  { name: "Nanda", kelas: "XII TKJ 1", status: "Selesai asesmen", progress: 85, tone: "success" as const, statusTone: "success" as const },
   { name: "Rizky Pratama", kelas: "XII TKJ 2", status: "Butuh bimbingan", progress: 45, tone: "warning" as const, statusTone: "danger" as const },
   { name: "Siti Rahma", kelas: "XI MM 1", status: "Progres berjalan", progress: 60, tone: "primary" as const, statusTone: "accent" as const },
   { name: "Dimas Adit", kelas: "XII AKL 1", status: "Selesai asesmen", progress: 90, tone: "success" as const, statusTone: "success" as const },
 ];
 
 const schedule = [
-  { student: "Andini Putri", topic: "Persiapan Interview", time: "09:30", room: "R. BK 1" },
+  { student: "Nanda", topic: "Persiapan Interview", time: "09:30", room: "R. BK 1" },
   { student: "Rizky Pratama", topic: "Pemetaan Karier", time: "11:00", room: "R. BK 2" },
   { student: "Siti Rahma", topic: "Konsultasi Jurusan", time: "13:30", room: "R. BK 1" },
 ];
