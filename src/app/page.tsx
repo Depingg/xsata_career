@@ -8,7 +8,6 @@ import { Services } from "@/components/landing/Services";
 import { Features } from "@/components/landing/Features";
 import { HowItWorks } from "@/components/landing/HowItWorks";
 import { Testimonials } from "@/components/landing/Testimonials";
-import { CTA } from "@/components/landing/CTA";
 import { FAQ } from "@/components/landing/FAQ";
 
 export default function Home() {
@@ -25,7 +24,6 @@ export default function Home() {
         <HowItWorks />
         <Testimonials />
         <FAQ />
-        <CTA />
       </main>
       <Footer />
     </>

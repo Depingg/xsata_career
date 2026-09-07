@@ -1,7 +1,6 @@
-import { Sparkles, ArrowRight, ShieldCheck, Bot, Users } from "lucide-react";
+import { ArrowRight, ShieldCheck, Bot, Sparkles, Users } from "lucide-react";
 import { Container } from "../ui/Container";
 import { LinkButton } from "../ui/Button";
-import { Badge } from "../ui/Badge";
 
 export function Hero() {
   return (
@@ -15,12 +14,7 @@ export function Hero() {
         }}
         aria-hidden="true"
       />
-      <Container className="relative flex flex-col items-center py-20 text-center sm:py-28">
-        <Badge tone="primary" className="mb-6">
-          <Sparkles className="h-3.5 w-3.5" />
-          Layanan BK & BKK
-        </Badge>
-
+      <Container className="relative flex flex-col items-center pt-8 pb-20 text-center sm:pt-12 sm:pb-28">
         <h1 className="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
           Temukan Arah Karier{" "}
           <span className="text-primary">Terbaikmu</span> dengan AI

@@ -1,7 +1,6 @@
 import { CheckCircle2, BrainCircuit, ShieldCheck, BarChart3, Bell, MapPin } from "lucide-react";
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
-import { Badge } from "../ui/Badge";
 
 const features = [
   {
@@ -41,7 +40,6 @@ export function Features() {
     <section id="tentang" className="bg-white py-20 sm:py-28">
       <Container>
         <SectionHeading
-          eyebrow="Mengapa XSata"
           title="Platform Karier Cerdas & Terpercaya"
           description="Dirancang bersama pendidik dan tenaga bimbingan konseling agar relevan dengan kebutuhan siswa SMKN 1 Tengaran."
         />
@@ -59,12 +57,6 @@ export function Features() {
               <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
             </div>
           ))}
-        </div>
-
-        <div className="mt-14 flex justify-center">
-          <Badge tone="accent" className="px-4 py-2 text-sm">
-            Dikembangkan untuk SMKN 1 Tengaran
-          </Badge>
         </div>
       </Container>
     </section>
