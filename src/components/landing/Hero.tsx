@@ -16,15 +16,14 @@ export function Hero() {
       />
       <Container className="relative flex flex-col items-center pt-8 pb-20 text-center sm:pt-12 sm:pb-28">
         <h1 className="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
-          Temukan Arah Karier{" "}
-          <span className="text-primary">Terbaikmu</span> dengan AI
+          Rancang <span className="text-blue-600">Masa Depan Karirmu</span>{" "}
+          Bersama <span className="font-extrabold">XSata AI</span>
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-          XSata Career membantu siswa SMKN 1 Tengaran mengenali potensi,
-          menentukan jurusan dan karier, serta terhubung langsung dengan
-          peluang dunia kerja. Didukung bimbingan konseling Guru BK dan
-          layanan BKK sekolah.
+          Platform bimbingan karir cerdas berbasis AI untuk siswa SMKN 1
+          Tengaran. Temukan minat bakat, rekomendasi jurusan, dan peluang kerja
+          impian dalam satu langkah mudah.
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">

@@ -73,14 +73,6 @@ export function Navbar() {
         <div className="hidden items-center gap-3 md:flex">
           {session ? (
             <>
-              <LinkButton
-                href={isSiswa ? "/siswa" : "/admin"}
-                variant="outline"
-                size="sm"
-              >
-                <LayoutDashboard className="h-4 w-4" />
-                Dasbor
-              </LinkButton>
               <div className="relative">
                 <button
                   onClick={() => setMenuOpen((v) => !v)}

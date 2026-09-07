@@ -74,6 +74,7 @@ export function DashboardShell({
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [session, setSession] = useState<Session | null>(null);
 
   useEffect(() => {
@@ -99,6 +100,16 @@ export function DashboardShell({
   function handleLogout() {
     clearSession();
     router.push("/login");
+  }
+
+  function handleDashboard() {
+    setProfileOpen(false);
+    router.push(role === "siswa" ? "/siswa" : role === "guru" ? "/guru" : "/admin");
+  }
+
+  function handleHome() {
+    setProfileOpen(false);
+    router.push("/");
   }
 
   return (
@@ -136,14 +147,6 @@ export function DashboardShell({
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
-          <Link
-            href="/"
-            onClick={() => setSidebarOpen(false)}
-            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-accent hover:text-primary"
-          >
-            <Home className="h-5 w-5" />
-            Beranda
-          </Link>
           {navItems.map(({ label, href, icon: Icon }) => {
             const active = pathname === href;
             return (
@@ -164,15 +167,6 @@ export function DashboardShell({
           })}
         </nav>
 
-        <div className="border-t border-border-light p-3">
-          <button
-            onClick={handleLogout}
-            className="flex w-full items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-accent hover:text-primary"
-          >
-            <LogOut className="h-5 w-5" />
-            Keluar
-          </button>
-        </div>
       </aside>
 
       {sidebarOpen && (
@@ -206,12 +200,56 @@ export function DashboardShell({
               <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-danger ring-2 ring-white" />
             </button>
 
-            <div className="hidden items-center gap-2 rounded-lg border border-border-light px-3 py-1.5 sm:flex">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent">
-                <User className="h-4 w-4 text-primary" />
-              </span>
-              <span className="text-sm font-medium text-slate-700">{displayName}</span>
-              <ChevronDown className="h-4 w-4 text-slate-400" />
+            <div className="relative">
+              <button
+                onClick={() => setProfileOpen((v) => !v)}
+                className="hidden items-center gap-2 rounded-lg border border-border-light px-3 py-1.5 transition-colors hover:border-primary hover:bg-accent-soft sm:flex"
+              >
+                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-accent">
+                  <User className="h-4 w-4 text-primary" />
+                </span>
+                <span className="text-sm font-medium text-slate-700">{displayName}</span>
+                <ChevronDown className={`h-4 w-4 text-slate-400 ${profileOpen ? "rotate-180" : ""}`} />
+              </button>
+
+              {profileOpen && (
+                <>
+                  <div
+                    className="fixed inset-0 z-40"
+                    onClick={() => setProfileOpen(false)}
+                    aria-hidden="true"
+                  />
+                  <div className="absolute right-0 top-full z-50 mt-2 w-64 rounded-xl border border-border-light bg-white shadow-lg">
+                    <div className="border-b border-border-light px-4 py-3">
+                      <p className="text-sm font-semibold text-slate-900">{displayName}</p>
+                      <p className="mt-0.5 text-xs text-slate-500">{displayUserRole}</p>
+                    </div>
+                    <div className="p-1.5">
+                      <button
+                        onClick={handleDashboard}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
+                      >
+                        <LayoutDashboard className="h-4 w-4 text-slate-400" />
+                        Dasbor
+                      </button>
+                      <button
+                        onClick={handleHome}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
+                      >
+                        <Home className="h-4 w-4 text-slate-400" />
+                        Halaman Utama
+                      </button>
+                      <button
+                        onClick={handleLogout}
+                        className="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+                      >
+                        <LogOut className="h-4 w-4" />
+                        Keluar / Logout
+                      </button>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </header>
