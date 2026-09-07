@@ -2,10 +2,10 @@ import { GraduationCap, BookOpen, Building2, Award } from "lucide-react";
 import { Container } from "../ui/Container";
 
 const items = [
-  { icon: GraduationCap, label: "SMK Negeri & Swasta" },
+  { icon: GraduationCap, label: "Siswa SMKN 1 Tengaran" },
   { icon: BookOpen, label: "9+ Kompetensi Keahlian" },
-  { icon: Building2, label: "500+ Mitra Industri" },
-  { icon: Award, label: "Terpercaya & Resmi" },
+  { icon: Building2, label: "BKK & Mitra Industri" },
+  { icon: Award, label: "Bimbingan Terarah" },
 ];
 
 export function TrustBar() {

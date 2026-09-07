@@ -24,8 +24,8 @@ export function CTA() {
               Mulai Perjalanan Kariermu Hari Ini
             </h2>
             <p className="mx-auto mt-4 max-w-xl text-base text-accent">
-              Bergabunglah bersama ribuan siswa SMK dan Guru BK yang telah
-              menemukan arah karier melalui XSata Career AI Platform.
+              Gunakan XSata Career bersama layanan bimbingan konseling dan BKK
+              SMKN 1 Tengaran untuk menemukan arah kariermu.
             </p>
             <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <LinkButton

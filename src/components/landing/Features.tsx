@@ -43,7 +43,7 @@ export function Features() {
         <SectionHeading
           eyebrow="Mengapa XSata"
           title="Platform Karier Cerdas & Terpercaya"
-          description="Dirancang bersama pendidik dan tenaga bimbingan konseling agar relevan dengan kebutuhan siswa SMK Indonesia."
+          description="Dirancang bersama pendidik dan tenaga bimbingan konseling agar relevan dengan kebutuhan siswa SMKN 1 Tengaran."
         />
 
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -63,7 +63,7 @@ export function Features() {
 
         <div className="mt-14 flex justify-center">
           <Badge tone="accent" className="px-4 py-2 text-sm">
-            Dipercaya oleh 200+ SMK di Indonesia
+            Dikembangkan untuk SMKN 1 Tengaran
           </Badge>
         </div>
       </Container>

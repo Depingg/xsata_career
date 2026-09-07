@@ -28,9 +28,6 @@ export function Logo({ className = "", href = "/" }: LogoProps) {
         <span className="text-lg font-extrabold tracking-tight text-slate-900">
           XSata<span className="text-primary"> Career</span>
         </span>
-        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-muted">
-          AI Platform
-        </span>
       </span>
     </Link>
   );

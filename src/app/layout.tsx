@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "%s | XSata Career",
   },
   description:
-    "Portal layanan resmi XSata Career AI Platform untuk siswa SMK dan Guru BK. Konsultasi karier cerdas berbasis AI, asesmen minat bakat, dan rekomendasi pekerjaan.",
+    "Portal layanan bimbingan konseling dan BKK XSata Career untuk siswa dan Guru BK SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI, asesmen minat bakat, dan rekomendasi pekerjaan.",
   keywords: [
     "SMK",
     "karier",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "XSata Career AI Platform",
     description:
-      "Portal layanan resmi untuk siswa SMK dan Guru BK. Konsultasi karier cerdas berbasis AI.",
+      "Portal layanan bimbingan konseling dan BKK untuk siswa dan Guru BK SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI.",
     type: "website",
     locale: "id_ID",
   },

@@ -120,7 +120,7 @@ export function LokerFilterWidget() {
           </h2>
           <p className="mx-auto mt-2 max-w-xl text-slate-600">
             Filter berdasarkan jurusan SMK dan status verifikasi BKK untuk menemukan
-            lowongan resmi yang paling sesuai.
+            lowongan yang paling sesuai.
           </p>
         </div>
 
@@ -197,27 +197,39 @@ export function LokerFilterWidget() {
               {error}
             </div>
           ) : filtered.length === 0 ? (
-            <div className="rounded-2xl border border-border-light bg-white p-10 text-center">
-              <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
-              <h3 className="mt-3 font-semibold text-slate-900">
-                Tidak ada lowongan yang cocok
-              </h3>
-              <p className="mt-1 text-sm text-muted">
-                Coba ubah kata kunci atau pilihan filtarnya.
-              </p>
-              {hasActiveFilter && (
-                <button
-                  onClick={() => {
-                    setQuery("");
-                    setMajors([]);
-                    setVerification("semua");
-                  }}
-                  className="mt-4 text-sm font-semibold text-primary hover:underline"
-                >
-                  Reset filter
-                </button>
-              )}
-            </div>
+            jobs.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-border-light bg-white p-12 text-center">
+                <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
+                <h3 className="mt-4 font-semibold text-slate-900">
+                  Belum ada lowongan yang tersedia saat ini.
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  Info lowongan dari BKK SMKN 1 Tengaran akan tampil di sini setelah tersedia.
+                </p>
+              </div>
+            ) : (
+              <div className="rounded-2xl border border-border-light bg-white p-10 text-center">
+                <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
+                <h3 className="mt-3 font-semibold text-slate-900">
+                  Tidak ada lowongan yang cocok
+                </h3>
+                <p className="mt-1 text-sm text-muted">
+                  Coba ubah kata kunci atau pilihan filtarnya.
+                </p>
+                {hasActiveFilter && (
+                  <button
+                    onClick={() => {
+                      setQuery("");
+                      setMajors([]);
+                      setVerification("semua");
+                    }}
+                    className="mt-4 text-sm font-semibold text-primary hover:underline"
+                  >
+                    Reset filter
+                  </button>
+                )}
+              </div>
+            )
           ) : (
             <>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">

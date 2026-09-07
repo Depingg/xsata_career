@@ -8,7 +8,7 @@ import { SectionHeading } from "../ui/SectionHeading";
 const faqs = [
   {
     q: "Apakah XSata Career AI Platform gratis?",
-    a: "Ya, platform ini gratis untuk siswa SMK dan Guru BK se-Indonesia. Seluruh fitur dasar — asesmen, konsultasi AI, dan akses lowongan — dapat digunakan tanpa biaya.",
+    a: "Ya, platform ini gratis untuk siswa dan Guru BK SMKN 1 Tengaran. Seluruh fitur dasar — asesmen, konsultasi AI, dan akses lowongan — dapat digunakan tanpa biaya.",
   },
   {
     q: "Bagaimana cara bergabung sebagai siswa?",

@@ -6,7 +6,7 @@ import { Container } from "./ui/Container";
 const layananLinks = [
   { label: "Konsultasi AI Karier", href: "/#layanan" },
   { label: "Asesmen Minat Bakat", href: "/#layanan" },
-  { label: "Lowongan Pekerjaan", href: "/lowongan" },
+  { label: "Lowongan Pekerjaan", href: "/#lowongan" },
   { label: "Panduan Karier", href: "/#layanan" },
   { label: "Program Bimbingan", href: "/#tentang" },
 ];
@@ -19,12 +19,6 @@ const bantuanLinks = [
   { label: "Pusat Bantuan", href: "/#kontak" },
 ];
 
-const akunLinks = [
-  { label: "Masuk Siswa", href: "/login?role=siswa" },
-  { label: "Masuk Guru BK", href: "/login?role=gurubk" },
-  { label: "Masuk Portal", href: "/login" },
-];
-
 export function Footer() {
   return (
     <footer className="border-t border-border-light bg-white">
@@ -33,9 +27,9 @@ export function Footer() {
           <div className="lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
-              XSata Career AI Platform adalah portal layanan resmi yang membantu
-              siswa SMK menemukan arah karier terbaik melalui bimbingan
-              konseling cerdas berbasis teknologi AI.
+              XSata Career adalah portal layanan bimbingan karier yang
+              membantu siswa SMKN 1 Tengaran menemukan arah karier terbaik
+              melalui bimbingan konseling dan layanan BKK sekolah.
             </p>
             <div className="mt-5 flex items-center gap-3">
               {[
@@ -115,7 +109,7 @@ export function Footer() {
               </li>
               <li className="flex items-start gap-2.5">
                 <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-                <span>Jakarta, Indonesia</span>
+                <span>Tengaran, Semarang, Jawa Tengah</span>
               </li>
             </ul>
             <div className="mt-4">
@@ -133,20 +127,8 @@ export function Footer() {
       <div className="border-t border-border-light">
         <Container className="flex flex-col items-center justify-between gap-3 py-6 sm:flex-row">
           <p className="text-sm text-slate-500">
-            &copy; {new Date().getFullYear()} XSata Career AI Platform. Seluruh
-            hak cipta dilindungi.
+            &copy; 2026 XSata Career. Seluruh hak cipta dilindungi.
           </p>
-          <div className="flex items-center gap-5 text-sm text-slate-500">
-            {akunLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                className="transition-colors hover:text-primary"
-              >
-                {link.label}
-              </Link>
-            ))}
-          </div>
         </Container>
       </div>
     </footer>

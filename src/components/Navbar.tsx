@@ -11,10 +11,9 @@ import { clearSession, readSession } from "@/lib/auth-store";
 import type { Session } from "@/lib/auth-store";
 
 const navLinks = [
-  { label: "Beranda", href: "/" },
+  { label: "Beranda", href: "/#hero" },
   { label: "Layanan", href: "/#layanan" },
-  { label: "Asesmen", href: "/siswa/asesmen" },
-  { label: "Lowongan", href: "/lowongan" },
+  { label: "Lowongan", href: "/#lowongan" },
   { label: "Tentang", href: "/#tentang" },
 ];
 
@@ -73,55 +72,65 @@ export function Navbar() {
 
         <div className="hidden items-center gap-3 md:flex">
           {session ? (
-            <div className="relative">
-              <button
-                onClick={() => setMenuOpen((v) => !v)}
-                className="flex items-center gap-2 rounded-xl border border-border-light bg-white py-1.5 pl-1.5 pr-3 transition-colors hover:border-primary hover:bg-accent-soft"
+            <>
+              <LinkButton
+                href={isSiswa ? "/siswa" : "/admin"}
+                variant="outline"
+                size="sm"
               >
-                <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
-                  {initials}
-                </span>
-                <span className="text-sm font-semibold text-slate-700">{nama}</span>
-                <ChevronDown
-                  className={`h-4 w-4 text-slate-400 transition-transform ${menuOpen ? "rotate-180" : ""}`}
-                />
-              </button>
-
-              {menuOpen && (
-                <>
-                  <div
-                    className="fixed inset-0 z-40"
-                    onClick={() => setMenuOpen(false)}
-                    aria-hidden="true"
+                <LayoutDashboard className="h-4 w-4" />
+                Dasbor
+              </LinkButton>
+              <div className="relative">
+                <button
+                  onClick={() => setMenuOpen((v) => !v)}
+                  className="flex items-center gap-2 rounded-xl border border-border-light bg-white py-1.5 pl-1.5 pr-3 transition-colors hover:border-primary hover:bg-accent-soft"
+                >
+                  <span className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-primary text-sm font-bold text-white">
+                    {initials}
+                  </span>
+                  <span className="text-sm font-semibold text-slate-700">{nama}</span>
+                  <ChevronDown
+                    className={`h-4 w-4 text-slate-400 transition-transform ${menuOpen ? "rotate-180" : ""}`}
                   />
-                  <div className="absolute right-0 top-full z-50 mt-2 w-60 rounded-xl border border-border-light bg-white shadow-lg">
-                    <div className="border-b border-border-light px-4 py-3">
-                      <p className="text-sm font-semibold text-slate-900">{nama}</p>
-                      <p className="mt-0.5 text-xs text-slate-500">
-                        {roleLabel}
-                        {noInduk ? ` • ${isSiswa ? "NIS" : "NIP"}: ${noInduk}` : ""}
-                      </p>
+                </button>
+
+                {menuOpen && (
+                  <>
+                    <div
+                      className="fixed inset-0 z-40"
+                      onClick={() => setMenuOpen(false)}
+                      aria-hidden="true"
+                    />
+                    <div className="absolute right-0 top-full z-50 mt-2 w-60 rounded-xl border border-border-light bg-white shadow-lg">
+                      <div className="border-b border-border-light px-4 py-3">
+                        <p className="text-sm font-semibold text-slate-900">{nama}</p>
+                        <p className="mt-0.5 text-xs text-slate-500">
+                          {roleLabel}
+                          {noInduk ? ` • ${isSiswa ? "NIS" : "NIP"}: ${noInduk}` : ""}
+                        </p>
+                      </div>
+                      <div className="p-1.5">
+                        <button
+                          onClick={handleDashboard}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
+                        >
+                          <LayoutDashboard className="h-4 w-4 text-slate-400" />
+                          Dashboard
+                        </button>
+                        <button
+                          onClick={handleLogout}
+                          className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
+                        >
+                          <LogOut className="h-4 w-4" />
+                          Keluar / Logout
+                        </button>
+                      </div>
                     </div>
-                    <div className="p-1.5">
-                      <button
-                        onClick={handleDashboard}
-                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-slate-700 transition-colors hover:bg-slate-100"
-                      >
-                        <LayoutDashboard className="h-4 w-4 text-slate-400" />
-                        Dashboard
-                      </button>
-                      <button
-                        onClick={handleLogout}
-                        className="flex w-full items-center gap-2 rounded-lg px-3 py-2.5 text-sm font-medium text-red-600 transition-colors hover:bg-red-50"
-                      >
-                        <LogOut className="h-4 w-4" />
-                        Keluar / Logout
-                      </button>
-                    </div>
-                  </div>
-                </>
-              )}
-            </div>
+                  </>
+                )}
+              </div>
+            </>
           ) : (
             <LinkButton href="/login" variant="primary" size="sm">
               Masuk

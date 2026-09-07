@@ -5,7 +5,7 @@ import { Badge } from "../ui/Badge";
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-accent via-accent-soft to-white">
+    <section id="hero" className="relative overflow-hidden bg-gradient-to-b from-accent via-accent-soft to-white">
       <div
         className="pointer-events-none absolute inset-0 opacity-[0.04]"
         style={{
@@ -18,7 +18,7 @@ export function Hero() {
       <Container className="relative flex flex-col items-center py-20 text-center sm:py-28">
         <Badge tone="primary" className="mb-6">
           <Sparkles className="h-3.5 w-3.5" />
-          Portal Layanan Resmi
+          Layanan BK & BKK
         </Badge>
 
         <h1 className="max-w-3xl text-4xl font-extrabold leading-tight tracking-tight text-slate-900 sm:text-5xl lg:text-6xl">
@@ -27,13 +27,14 @@ export function Hero() {
         </h1>
 
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-600">
-          XSata Career AI Platform membantu siswa SMK mengenali potensi,
+          XSata Career membantu siswa SMKN 1 Tengaran mengenali potensi,
           menentukan jurusan dan karier, serta terhubung langsung dengan
-          peluang dunia kerja. Didukung bimbingan konseling dari Guru BK.
+          peluang dunia kerja. Didukung bimbingan konseling Guru BK dan
+          layanan BKK sekolah.
         </p>
 
         <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row">
-          <LinkButton href="/login" size="lg" className="w-full sm:w-auto">
+          <LinkButton href="/siswa/konsultasi" size="lg" className="w-full sm:w-auto">
             Mulai Konsultasi Gratis
             <ArrowRight className="h-4 w-4" />
           </LinkButton>
@@ -44,7 +45,7 @@ export function Hero() {
 
         <p className="mt-5 flex items-center gap-2 text-sm text-slate-500">
           <ShieldCheck className="h-4 w-4 text-success" />
-          Gratis untuk siswa SMK dan Guru BK se-Indonesia
+          Layanan Bimbingan Konseling &amp; BKK SMKN 1 Tengaran
         </p>
 
         <div className="mt-14 grid w-full max-w-4xl grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

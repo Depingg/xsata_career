@@ -24,6 +24,7 @@ import {
   X,
   ChevronDown,
   User,
+  Home,
 } from "lucide-react";
 import { Logo } from "./Logo";
 
@@ -135,6 +136,14 @@ export function DashboardShell({
         </div>
 
         <nav className="flex-1 space-y-1 overflow-y-auto p-3">
+          <Link
+            href="/"
+            onClick={() => setSidebarOpen(false)}
+            className="flex items-center gap-3 rounded-xl px-3.5 py-2.5 text-sm font-medium text-slate-600 transition-colors hover:bg-accent hover:text-primary"
+          >
+            <Home className="h-5 w-5" />
+            Beranda
+          </Link>
           {navItems.map(({ label, href, icon: Icon }) => {
             const active = pathname === href;
             return (

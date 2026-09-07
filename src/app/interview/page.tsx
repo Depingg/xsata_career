@@ -218,7 +218,7 @@ export default function InterviewRaporPage() {
         14,
         y + 6
       );
-      doc.text("XSata Career - Portal Layanan Resmi Bimbingan Karier Siswa SMK", 14, y + 10.5);
+      doc.text("XSata Career - Layanan Bimbingan Karier Siswa SMKN 1 Tengaran", 14, y + 10.5);
 
       doc.save(`Rapor-Kesiapan-Kerja-${student.name.replace(/\s+/g, "-")}.pdf`);
     } finally {

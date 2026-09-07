@@ -11,7 +11,6 @@ import {
   buildSession,
   persistSession,
   readSession,
-  sessionDashboardPath,
 } from "@/lib/auth-store";
 
 type Role = "siswa" | "guru";
@@ -32,7 +31,7 @@ export default function LoginPage() {
       if (cancelled) return;
       const existing = readSession();
       if (existing) {
-        router.replace(sessionDashboardPath(existing));
+        router.replace("/");
         return;
       }
       const params = new URLSearchParams(window.location.search);
@@ -67,7 +66,7 @@ export default function LoginPage() {
     const session = buildSession(isSiswa ? "siswa" : "guru", value.trim());
 
     persistSession(session);
-    router.push(sessionDashboardPath(session));
+    router.push("/");
   }
 
   return (
