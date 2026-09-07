@@ -16,10 +16,10 @@ export default function Home() {
       <Navbar />
       <main className="flex-1">
         <Hero />
+        <Services />
         <LokerFilterWidget />
         <TrustBar />
         <Stats />
-        <Services />
         <Features />
         <HowItWorks />
         <Testimonials />

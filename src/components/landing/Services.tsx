@@ -1,4 +1,5 @@
-import { Bot, ClipboardCheck, Briefcase, LineChart, BookOpen, MessagesSquare } from "lucide-react";
+import { Bot, ClipboardCheck, Briefcase, LineChart, BookOpen, FileText } from "lucide-react";
+import Link from "next/link";
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
 import { LinkButton } from "../ui/Button";
@@ -36,10 +37,11 @@ const services = [
     tag: "Lengkap",
   },
   {
-    icon: MessagesSquare,
-    title: "Kolaborasi Guru BK",
-    desc: "Guru BK memantau murid, menjadwalkan konseling, dan memberikan arahan secara terpusat.",
-    tag: "Kolaboratif",
+    icon: FileText,
+    title: "Bank Soal & Latihan",
+    desc: "Akses kumpulan soal latihan psikotes, tes kerja, dan persiapan asesmen karier yang dapat diakses langsung dari dasbor.",
+    tag: "Lengkap",
+    href: "/siswa/asesmen",
   },
 ];
 
@@ -54,27 +56,36 @@ export function Services() {
         />
 
         <div className="mt-14 grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {services.map(({ icon: Icon, title, desc, tag, highlighted }) => (
-            <div
-              key={title}
-              className={`group relative rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
-                highlighted
-                  ? "border-2 border-primary bg-white"
-                  : "border border-border-light bg-white"
-              }`}
-            >
-              {highlighted && (
-                <span className="absolute right-4 top-4 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-white">
-                  {tag}
+          {services.map(({ icon: Icon, title, desc, tag, highlighted, href }) => {
+            const content = (
+              <>
+                {highlighted && (
+                  <span className="absolute right-4 top-4 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold text-white">
+                    {tag}
+                  </span>
+                )}
+                <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-white">
+                  <Icon className="h-6 w-6" />
                 </span>
-              )}
-              <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary transition-colors group-hover:bg-primary group-hover:text-white">
-                <Icon className="h-6 w-6" />
-              </span>
-              <h3 className="mt-4 text-lg font-semibold text-slate-900">{title}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
-            </div>
-          ))}
+                <h3 className="mt-4 text-lg font-semibold text-slate-900">{title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{desc}</p>
+              </>
+            );
+            const classes = `group relative rounded-2xl p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-lg ${
+              highlighted
+                ? "border-2 border-primary bg-white"
+                : "border border-border-light bg-white"
+            }`;
+            return href ? (
+              <Link key={title} href={href} className={classes}>
+                {content}
+              </Link>
+            ) : (
+              <div key={title} className={classes}>
+                {content}
+              </div>
+            );
+          })}
         </div>
 
         <div className="mt-12 text-center">
