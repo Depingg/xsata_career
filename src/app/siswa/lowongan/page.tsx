@@ -96,7 +96,7 @@ export default function LowonganPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <PageHeader
         title="Lowongan Kerja & Magang"
         description="Temukan peluang yang sesuai dengan minat dan kompetensimu."

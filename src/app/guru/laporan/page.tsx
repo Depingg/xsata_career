@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 
 export default function LaporanPage() {
   return (
-    <DashboardShell role="guru" username="Bu Ratna Dewi" userRole="Guru BK • SMK Negeri 1">
+    <DashboardShell role="guru">
       <PageHeader
         title="Laporan & Analitik"
         description="Ringkasan statistik bimbingan karier siswa."

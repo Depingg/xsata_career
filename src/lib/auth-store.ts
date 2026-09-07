@@ -129,6 +129,6 @@ export function clearSession() {
 }
 
 export function sessionDashboardPath(session: Session | null): string {
-  if (session?.role === "guru") return "/admin";
-  return "/siswa";
+  if (session?.role === "siswa") return "/siswa";
+  return "/admin";
 }

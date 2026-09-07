@@ -89,7 +89,7 @@ export default function AsesmenPage() {
   if (result) {
     const PathwayIcon = pathwayIcons[result.pathway];
     return (
-      <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+      <DashboardShell role="siswa">
         <PageHeader
           title="Hasil Asesmen Minat & Bakat"
           description="Ringkasan analisis minat, bakat, jalur pasca-lulus, dan rekomendasi karier berdasarkan 10 jawabanmu."
@@ -248,7 +248,7 @@ export default function AsesmenPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <PageHeader
         title="Asesmen Minat & Bakat"
         description="Jawab dengan jujur 10 pertanyaan untuk hasil yang akurat."

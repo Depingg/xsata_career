@@ -19,7 +19,7 @@ const schedule = [
 
 export default function JadwalPage() {
   return (
-    <DashboardShell role="guru" username="Bu Ratna Dewi" userRole="Guru BK • SMK Negeri 1">
+    <DashboardShell role="guru">
       <PageHeader
         title="Jadwal Konseling"
         description="Kelola jadwal bimbingan konseling siswa."

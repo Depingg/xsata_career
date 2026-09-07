@@ -30,7 +30,7 @@ const students: Student[] = [
 
 export default function KelolaSiswaPage() {
   return (
-    <DashboardShell role="guru" username="Bu Ratna Dewi" userRole="Guru BK • SMK Negeri 1">
+    <DashboardShell role="guru">
       <PageHeader
         title="Kelola Siswa"
         description="Pantau dan kelola bimbingan karier siswa binaan."

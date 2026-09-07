@@ -12,11 +12,8 @@ import {
   ClipboardCheck,
   Briefcase,
   BookOpen,
-  Users,
-  CalendarCheck,
-  BarChart3,
-  MessageSquare,
-  GraduationCap,
+  TrendingUp,
+  Building2,
   LogOut,
   FileText,
   Bell,
@@ -29,6 +26,18 @@ import {
 import { Logo } from "./Logo";
 
 export type Role = "siswa" | "guru" | "admin";
+
+function defaultName(role: Role): string {
+  return role === "siswa" ? "Siswa" : role === "guru" ? "Guru BK" : "Admin";
+}
+
+function defaultUserRole(role: Role): string {
+  return role === "siswa"
+    ? "Siswa SMK"
+    : role === "guru"
+    ? "Guru BK"
+    : "Administrator";
+}
 
 interface NavItem {
   label: string;
@@ -45,32 +54,20 @@ const siswaNav: NavItem[] = [
   { label: "Materi & Panduan", href: "/siswa/materi", icon: BookOpen },
 ];
 
-const guruNav: NavItem[] = [
-  { label: "Dasbor", href: "/guru", icon: LayoutDashboard },
-  { label: "Kelola Siswa", href: "/guru/siswa", icon: Users },
-  { label: "Jadwal Konseling", href: "/guru/jadwal", icon: CalendarCheck },
-  { label: "Laporan & Analitik", href: "/guru/laporan", icon: BarChart3 },
-  { label: "Pesan", href: "/guru/pesan", icon: MessageSquare },
-];
-
 const adminNav: NavItem[] = [
   { label: "Dasbor", href: "/admin", icon: LayoutDashboard },
-  { label: "Tracer Study", href: "/admin/tracer-study", icon: GraduationCap },
+  { label: "Input Nilai & Skill", href: "/admin/nilai-skill", icon: ClipboardCheck },
+  { label: "Kesiapan Kerja & Skill Gap", href: "/admin/kesiapan-kerja", icon: TrendingUp },
+  { label: "Kelola Lowongan BKK", href: "/admin/lowongan", icon: Briefcase },
+  { label: "Data Mitra & Rekomendasi", href: "/admin/mitra", icon: Building2 },
 ];
 
 interface DashboardShellProps {
   role: Role;
-  username: string;
-  userRole: string;
   children: ReactNode;
 }
 
-export function DashboardShell({
-  role,
-  username,
-  userRole,
-  children,
-}: DashboardShellProps) {
+export function DashboardShell({ role, children }: DashboardShellProps) {
   const pathname = usePathname();
   const router = useRouter();
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -90,12 +87,11 @@ export function DashboardShell({
     };
   }, []);
 
-  const navItems =
-    role === "siswa" ? siswaNav : role === "guru" ? guruNav : adminNav;
+  const navItems = role === "siswa" ? siswaNav : adminNav;
 
-  const sameRole = session?.role === role;
-  const displayName = sameRole && session?.nama ? session.nama : username;
-  const displayUserRole = sameRole && session?.userRole ? session.userRole : userRole;
+  const displayName = session?.nama?.trim() || defaultName(role);
+  const displayUserRole =
+    session?.userRole?.trim() || defaultUserRole(role);
 
   function handleLogout() {
     clearSession();
@@ -104,7 +100,9 @@ export function DashboardShell({
 
   function handleDashboard() {
     setProfileOpen(false);
-    router.push(role === "siswa" ? "/siswa" : role === "guru" ? "/guru" : "/admin");
+    const target =
+      session?.role === "siswa" ? "/siswa" : "/admin";
+    router.push(target);
   }
 
   function handleHome() {

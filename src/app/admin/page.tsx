@@ -1,104 +1,154 @@
-import type { Metadata } from "next";
 import Link from "next/link";
+import type { Metadata } from "next";
 import {
-  GraduationCap,
-  Briefcase,
-  BookOpenCheck,
-  Store,
-  ArrowRight,
+  ClipboardCheck,
   TrendingUp,
-  PieChart,
+  Briefcase,
+  Building2,
+  ArrowRight,
+  Users,
+  CheckCircle2,
+  Star,
 } from "lucide-react";
 import { DashboardShell } from "@/components/DashboardShell";
 import { PageHeader } from "@/components/ui/PageHeader";
-import { StatCard } from "@/components/ui/StatCard";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
-import { LinkButton } from "@/components/ui/Button";
-import { ProgressBar } from "@/components/ui/ProgressBar";
-import { tracerStudyStore } from "@/lib/tracer-study-store";
 
 export const metadata: Metadata = {
-  title: "Dasbor Admin",
+  title: "Dasbor Admin / Guru BK",
 };
 
-export default function AdminDashboardPage() {
-  const stats = tracerStudyStore.stats();
+interface UseCaseCard {
+  href: string;
+  title: string;
+  description: string;
+  icon: typeof ClipboardCheck;
+}
 
+const useCases: UseCaseCard[] = [
+  {
+    href: "/admin/nilai-skill",
+    title: "Input Nilai & Skill",
+    description: "Input dan kelola nilai serta kompetensi skill praktikum siswa.",
+    icon: ClipboardCheck,
+  },
+  {
+    href: "/admin/kesiapan-kerja",
+    title: "Kesiapan Kerja & Skill Gap",
+    description: "Lihat analisis skill gap dan tingkat kesiapan kerja siswa.",
+    icon: TrendingUp,
+  },
+  {
+    href: "/admin/lowongan",
+    title: "Kelola Lowongan BKK",
+    description: "Unggah lowongan kerja/magang baru dan verifikasi manual loker BKK.",
+    icon: Briefcase,
+  },
+  {
+    href: "/admin/mitra",
+    title: "Data Mitra & Rekomendasi",
+    description: "Kelola data mitra industri dan rekomendasi magang / kerja.",
+    icon: Building2,
+  },
+];
+
+export default function AdminDashboardPage() {
   return (
-    <DashboardShell role="admin" username="Pak Admin" userRole="Administrator • XSata Career">
+    <DashboardShell role="guru">
       <PageHeader
-        title="Selamat Datang, Admin"
-        description="Kelola data tracer study alumni dan pemantauan keterserapan kerja lulusan SMK."
+        title="Dasbor Admin / Guru BK"
+        description="Kelola bimbingan karier, penilaian skill, kesiapan kerja, loker BKK, dan mitra industri."
       />
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        <StatCard label="Total Alumni Terdata" value={stats.total} hint="Semua angkatan" icon={<GraduationCap className="h-5 w-5" />} tone="primary" />
-        <StatCard label="Terserap Bekerja" value={`${stats.percentages.Bekerja}%`} hint={`${stats.counts.Bekerja} lulusan`} icon={<Briefcase className="h-5 w-5" />} tone="success" />
-        <StatCard label="Melanjutkan Kuliah" value={`${stats.percentages.Melanjutkan}%`} hint={`${stats.counts.Melanjutkan} lulusan`} icon={<BookOpenCheck className="h-5 w-5" />} tone="warning" />
-        <StatCard label="Wirausaha" value={`${stats.percentages.Wirausaha}%`} hint={`${stats.counts.Wirausaha} lulusan`} icon={<Store className="h-5 w-5" />} tone="danger" />
+        <Card className="p-5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted">Siswa Terdata</p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">248</p>
+              <p className="mt-1 text-xs text-muted">12 kelas</p>
+            </div>
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-accent text-primary">
+              <Users className="h-5 w-5" />
+            </span>
+          </div>
+        </Card>
+        <Card className="p-5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted">Siap Magang/Kerja</p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">48%</p>
+              <p className="mt-1 text-xs text-muted">119 siswa</p>
+            </div>
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-success-soft text-success">
+              <CheckCircle2 className="h-5 w-5" />
+            </span>
+          </div>
+        </Card>
+        <Card className="p-5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted">Loker Terverifikasi</p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">12</p>
+              <p className="mt-1 text-xs text-muted">Mitra BKK</p>
+            </div>
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-warning-soft text-warning">
+              <Briefcase className="h-5 w-5" />
+            </span>
+          </div>
+        </Card>
+        <Card className="p-5">
+          <div className="flex items-start justify-between">
+            <div>
+              <p className="text-sm font-medium text-muted">Mitra Industri</p>
+              <p className="mt-2 text-2xl font-bold text-slate-900">20</p>
+              <p className="mt-1 text-xs text-muted">Rekomendasi aktif</p>
+            </div>
+            <span className="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-danger-soft text-danger">
+              <Building2 className="h-5 w-5" />
+            </span>
+          </div>
+        </Card>
       </div>
 
-      <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
-        <Card className="lg:col-span-2">
-          <CardHeader className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <PieChart className="h-5 w-5 text-primary" />
-              <h3 className="font-semibold text-slate-900">Distribusi Keterserapan Alumni (BMW)</h3>
-            </div>
-            <Link
-              href="/admin/tracer-study"
-              className="inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
-            >
-              Kelola data alumni
-              <ArrowRight className="h-4 w-4" />
-            </Link>
-          </CardHeader>
-          <CardContent className="space-y-5">
-            {(
-              [
-                { label: "Bekerja", value: stats.percentages.Bekerja, tone: "success" as const },
-                { label: "Melanjutkan / Kuliah", value: stats.percentages.Melanjutkan, tone: "warning" as const },
-                { label: "Wirausaha", value: stats.percentages.Wirausaha, tone: "danger" as const },
-              ]
-            ).map((item) => (
-              <div key={item.label}>
-                <div className="mb-1.5 flex items-center justify-between text-sm">
-                  <span className="font-medium text-slate-700">{item.label}</span>
-                  <span className="font-semibold text-primary">{item.value}%</span>
+      <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        {useCases.map(({ href, title, description, icon: Icon }) => (
+          <Link key={href} href={href} className="group">
+            <Card className="h-full transition-all group-hover:border-primary/40 group-hover:shadow-md">
+              <CardContent className="p-5">
+                <div className="flex items-start justify-between">
+                  <span className="inline-flex h-12 w-12 items-center justify-center rounded-xl bg-accent text-primary">
+                    <Icon className="h-6 w-6" />
+                  </span>
+                  <ArrowRight className="h-5 w-5 text-slate-300 transition-colors group-hover:text-primary" />
                 </div>
-                <ProgressBar value={item.value} tone={item.tone} />
-              </div>
-            ))}
-            <div className="rounded-xl bg-accent p-4">
-              <div className="flex items-center gap-2">
-                <TrendingUp className="h-4 w-4 text-success" />
-                <p className="font-semibold text-primary">Catatan Keterserapan</p>
-              </div>
-              <ul className="mt-2 space-y-1.5 text-sm text-slate-700">
-                <li>• Mayoritas alumni terserap dunia kerja ({stats.percentages.Bekerja}%).</li>
-                <li>• {stats.counts.Melanjutkan} alumni melanjutkan studi ke perguruan tinggi.</li>
-                <li>• {stats.counts.Wirausaha} alumni memilih jalur wirausaha (BMW).</li>
-              </ul>
-            </div>
-          </CardContent>
-        </Card>
-
-        <Card>
-          <CardHeader className="flex items-center gap-2">
-            <Briefcase className="h-5 w-5 text-primary" />
-            <h3 className="font-semibold text-slate-900">Data Loker Terverifikasi</h3>
-          </CardHeader>
-          <CardContent className="space-y-3">
-            <p className="text-sm text-slate-600">
-              Kelola lowongan magang dan kerja dari mitra industri pada halaman lowongan publik.
-            </p>
-            <LinkButton href="/lowongan" variant="secondary" size="sm" className="w-full">
-              Lihat Daftar Loker
-              <ArrowRight className="h-3.5 w-3.5" />
-            </LinkButton>
-          </CardContent>
-        </Card>
+                <h3 className="mt-4 font-semibold text-slate-900">{title}</h3>
+                <p className="mt-1 text-sm text-muted">{description}</p>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
       </div>
+
+      <Card className="mt-6">
+        <CardHeader className="flex items-center gap-2">
+          <TrendingUp className="h-5 w-5 text-primary" />
+          <h3 className="font-semibold text-slate-900">Ringkasan Kesiapan Kerja Siswa</h3>
+        </CardHeader>
+        <CardContent>
+          <div className="rounded-xl bg-accent p-4">
+            <div className="flex items-center gap-2">
+              <Star className="h-4 w-4 text-warning" />
+              <p className="font-semibold text-primary">Rekomendasi AI</p>
+            </div>
+            <p className="mt-2 text-sm leading-relaxed text-slate-700">
+              Sejumlah siswa kelas XII masih memiliki kesenjangan skill pada bidang{" "}
+              <b>keamanan jaringan</b> dan <b>pengembangan backend</b>. Fokuskan bimbingan dan
+              penempatan magang pada mitra yang sesuai untuk menutup gap tersebut sebelum lulus.
+            </p>
+          </div>
+        </CardContent>
+      </Card>
     </DashboardShell>
   );
 }

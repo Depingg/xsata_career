@@ -40,10 +40,11 @@ export function Navbar() {
   const roleLabel = isSiswa ? "Siswa" : "Guru BK";
   const noInduk = isSiswa ? session?.nis : session?.nip;
   const initials = nama.charAt(0).toUpperCase();
+  const dashboardHref = session?.role === "siswa" ? "/siswa" : "/admin";
 
   function handleDashboard() {
     setMenuOpen(false);
-    router.push(isSiswa ? "/siswa" : "/admin");
+    router.push(session?.role === "siswa" ? "/siswa" : "/admin");
   }
 
   function handleLogout() {
@@ -181,7 +182,7 @@ export function Navbar() {
                     onClick={() => setOpen(false)}
                     className="w-full"
                   >
-                    <LinkButton href={isSiswa ? "/siswa" : "/admin"} variant="primary" className="w-full">
+                    <LinkButton href={dashboardHref} variant="primary" className="w-full">
                       <LayoutDashboard className="h-4 w-4" />
                       Dasbor
                     </LinkButton>

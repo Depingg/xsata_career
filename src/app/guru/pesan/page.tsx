@@ -34,7 +34,7 @@ export default function PesanPage() {
   const [selected, setSelected] = useState<Conversation | null>(null);
 
   return (
-    <DashboardShell role="guru" username="Bu Ratna Dewi" userRole="Guru BK • SMK Negeri 1">
+    <DashboardShell role="guru">
       <PageHeader title="Pesan" description="Komunikasi dengan siswa binaan." />
 
       <Card className="overflow-hidden min-h-[520px]">

@@ -61,7 +61,7 @@ function StudentDashboardPage() {
       : 0;
 
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <StudentGreeting />
 
       {/* Welcome banner */}

@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent } from "react";
+import { usePathname } from "next/navigation";
+import { readSession } from "@/lib/auth-store";
 import {
   Bot,
   Sparkles,
@@ -472,6 +474,34 @@ export function FloatingChatbot() {
     if (isProcessing) return "Memproses pertanyaanmu...";
     if (listening) return "Mendengarkan...";
     return IDLE_HINT;
+  }
+
+  const pathname = usePathname();
+
+  const hideByPath =
+    pathname === "/admin" ||
+    pathname.startsWith("/admin/") ||
+    pathname === "/guru" ||
+    pathname.startsWith("/guru/");
+
+  const [sessionRole, setSessionRole] = useState<string | null>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      setSessionRole(readSession()?.role ?? null);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [pathname]);
+
+  const hideByRole =
+    sessionRole === "guru" || sessionRole === "admin";
+
+  if (hideByPath || hideByRole) {
+    return null;
   }
 
   return (

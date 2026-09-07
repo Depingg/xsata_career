@@ -1,4 +1,4 @@
-import { ArrowRight, ShieldCheck } from "lucide-react";
+import { ShieldCheck } from "lucide-react";
 import { Container } from "../ui/Container";
 import { LinkButton } from "../ui/Button";
 
@@ -26,11 +26,7 @@ export function Hero() {
           impian dalam satu langkah mudah.
         </p>
 
-        <div className="mt-9 flex flex-col items-center gap-3 sm:flex-row sm:justify-center">
-          <LinkButton href="/siswa/konsultasi" size="lg" className="w-full sm:w-auto">
-            Mulai Konsultasi Gratis
-            <ArrowRight className="h-4 w-4" />
-          </LinkButton>
+        <div className="mt-9 flex justify-center">
           <LinkButton href="/#layanan" variant="outline" size="lg" className="w-full sm:w-auto">
             Lihat Layanan
           </LinkButton>

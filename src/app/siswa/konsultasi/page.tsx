@@ -66,7 +66,7 @@ export default function KonsultasiPage() {
   }
 
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <PageHeader
         title="Konsultasi Karier AI"
         description="Tanyakan apa saja tentang karier, jurusan, dan masa depanmu kepada asisten AI."

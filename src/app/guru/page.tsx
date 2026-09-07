@@ -39,9 +39,9 @@ const schedule = [
 
 export default function GuruDashboardPage() {
   return (
-    <DashboardShell role="guru" username="Bu Ratna Dewi" userRole="Guru BK • SMK Negeri 1">
+    <DashboardShell role="guru">
       <PageHeader
-        title="Selamat Datang Kembali, Bu Ratna"
+        title="Selamat Datang Kembali"
         description="Kelola bimbingan karier dan pantau perkembangan siswa."
       />
 

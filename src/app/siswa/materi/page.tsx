@@ -29,7 +29,7 @@ const materials = [
 
 export default function MateriPage() {
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <PageHeader
         title="Materi & Panduan"
         description="Pelajari panduan dan materi bimbingan karier sesuai kebutuhanmu."

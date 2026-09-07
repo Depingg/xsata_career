@@ -18,6 +18,7 @@ import { jsPDF } from "jspdf";
 import QRCode from "qrcode";
 import { DashboardShell } from "@/components/DashboardShell";
 import { PageHeader } from "@/components/ui/PageHeader";
+import { readSession } from "@/lib/auth-store";
 import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -44,12 +45,39 @@ const skorSkk =
     ? Math.round(skillGaps.reduce((sum, g) => sum + g.current, 0) / skillGaps.length)
     : 0;
 
-const verificationToken = `XSATA-RAPOR|v1|${student.nis}|${student.name.toUpperCase()}|KOM-${communicationScore ?? 0}|SKK-${skorSkk}|2026-09-06`;
+function buildToken(s: typeof student) {
+  return `XSATA-RAPOR|v1|${s.nis}|${s.name.toUpperCase()}|KOM-${communicationScore ?? 0}|SKK-${skorSkk}|2026-09-06`;
+}
 
 export default function InterviewRaporPage() {
   const [qrDataUrl, setQrDataUrl] = useState("");
   const [qrReady, setQrReady] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [currentStudent, setCurrentStudent] = useState(student);
+  const verificationToken = buildToken(currentStudent);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      const session = readSession();
+      if (session) {
+        setCurrentStudent({
+          name: session.nama || student.name,
+          kelas: session.jurusan ? `XII ${session.jurusan} 1` : student.kelas,
+          jurusan: session.jurusan
+            ? `Jurusan ${session.jurusan}`
+            : student.jurusan,
+          nis: session.nis || student.nis,
+        });
+      }
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
@@ -68,7 +96,7 @@ export default function InterviewRaporPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [verificationToken]);
 
   function drawBar(doc: jsPDF, x: number, y: number, w: number, value: number, max = 100) {
     doc.setFillColor(226, 232, 240);
@@ -103,8 +131,8 @@ export default function InterviewRaporPage() {
       doc.text("Nama:", 18, 52.5);
       doc.text("Kelas:", 18, 58);
       doc.setFont("helvetica", "normal");
-      doc.text(student.name, 42, 52.5);
-      doc.text(`${student.kelas}  |  ${student.jurusan} (NIS: ${student.nis})`, 42, 58);
+      doc.text(currentStudent.name, 42, 52.5);
+      doc.text(`${currentStudent.kelas}  |  ${currentStudent.jurusan} (NIS: ${currentStudent.nis})`, 42, 58);
       doc.setFont("helvetica", "bold");
       doc.text("Skor Komunikasi:", 18, 64);
       doc.setFont("helvetica", "bold");
@@ -209,14 +237,14 @@ export default function InterviewRaporPage() {
       );
       doc.text("XSata Career - Layanan Bimbingan Karier Siswa SMKN 1 Tengaran", 14, y + 10.5);
 
-      doc.save(`Rapor-Kesiapan-Kerja-${student.name.replace(/\s+/g, "-")}.pdf`);
+      doc.save(`Rapor-Kesiapan-Kerja-${currentStudent.name.replace(/\s+/g, "-")}.pdf`);
     } finally {
       setDownloading(false);
     }
   }
 
   return (
-    <DashboardShell role="siswa" username="Nanda" userRole="Siswa SMK • TKJ">
+    <DashboardShell role="siswa">
       <PageHeader
         title="Rapor Kesiapan Kerja"
         description="Ringkasan hasil simulasi interview, skor komunikasi, analisis kesenjangan skill, dan rekomendasi perbaikan dari AI."
@@ -242,20 +270,20 @@ export default function InterviewRaporPage() {
           <CardContent className="space-y-3 text-sm">
             <div className="flex items-center gap-3 rounded-xl bg-accent p-4">
               <span className="flex h-12 w-12 items-center justify-center rounded-full bg-primary text-base font-bold text-white">
-                {student.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
+                {currentStudent.name.split(" ").map((w) => w[0]).slice(0, 2).join("")}
               </span>
               <div>
-                <p className="font-semibold text-slate-900">{student.name}</p>
-                <p className="text-xs text-muted">{student.kelas}</p>
+                <p className="font-semibold text-slate-900">{currentStudent.name}</p>
+                <p className="text-xs text-muted">{currentStudent.kelas}</p>
               </div>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-muted">Jurusan</p>
-              <p className="mt-0.5 font-medium text-slate-800">{student.jurusan}</p>
+              <p className="mt-0.5 font-medium text-slate-800">{currentStudent.jurusan}</p>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-muted">NIS</p>
-              <p className="mt-0.5 font-medium text-slate-800">{student.nis}</p>
+              <p className="mt-0.5 font-medium text-slate-800">{currentStudent.nis}</p>
             </div>
             <div>
               <p className="text-xs font-semibold uppercase tracking-wide text-muted">Status</p>
