@@ -20,6 +20,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Input, Select } from "@/components/ui/Input";
+import { MAJOR_CODES } from "@/lib/jurusan";
 
 type StatusTerserap = "Bekerja" | "Melanjutkan" | "Wirausaha";
 
@@ -356,7 +357,7 @@ export default function TracerStudyPage() {
                   value={form.jurusan}
                   onChange={(e) => updateForm("jurusan", e.target.value)}
                 >
-                  {["RPL", "TKJ", "Multimedia", "AKL", "OTKP", "Pemasaran", "ELIN", "TITL", "TP", "TKRO", "TBSM"].map((j) => (
+                  {MAJOR_CODES.map((j) => (
                     <option key={j} value={j}>{j}</option>
                   ))}
                 </Select>

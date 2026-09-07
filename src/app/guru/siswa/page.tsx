@@ -23,9 +23,9 @@ interface Student {
 const students: Student[] = [
   { name: "Nanda", kelas: "XII", jurusan: "TKJ", progress: 85, status: "Aktif" },
   { name: "Rizky Pratama", kelas: "XII", jurusan: "TKJ", progress: 45, status: "Perlu perhatian" },
-  { name: "Siti Rahma", kelas: "XI", jurusan: "MM", progress: 60, status: "Aktif" },
-  { name: "Dimas Adit", kelas: "XII", jurusan: "AKL", progress: 90, status: "Aktif" },
-  { name: "Nadia Sari", kelas: "XII", jurusan: "AP", progress: 30, status: "Perlu perhatian" },
+  { name: "Siti Rahma", kelas: "XI", jurusan: "Tata Busana", progress: 60, status: "Aktif" },
+  { name: "Dimas Adit", kelas: "XII", jurusan: "Tata Boga", progress: 90, status: "Aktif" },
+  { name: "Nadia Sari", kelas: "XII", jurusan: "RPL", progress: 30, status: "Perlu perhatian" },
 ];
 
 export default function KelolaSiswaPage() {

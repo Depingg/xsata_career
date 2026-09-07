@@ -253,10 +253,10 @@ export const dimensionMeta: Record<
     careers: [
       "UI/UX Designer",
       "Frontend Developer",
-      "Multimedia / Desain Grafis",
+      "Desainer Visual / Desain Grafis",
       "Konten Kreator",
     ],
-    jurusan: ["RPL (Front End)", "DKV (Desain Komunikasi Visual)", "Multimedia"],
+    jurusan: ["RPL", "Tata Busana"],
     skillTip: "Perkuat Figma, HTML/CSS, dan usability testing melalui proyek portofolio.",
   },
   teknologi: {
@@ -267,7 +267,7 @@ export const dimensionMeta: Record<
       "IT Support / Sysadmin",
       "Data Analyst / Database Admin",
     ],
-    jurusan: ["TKJ", "RPL (Back End)", "SIJA"],
+    jurusan: ["TKJ", "RPL"],
     skillTip: "Fokus pada logika pemrograman, administrasi jaringan, dan ambil sertifikasi industri.",
   },
   bisnis: {
@@ -277,7 +277,7 @@ export const dimensionMeta: Record<
       "Digital Marketing",
       "Sales & Business Development",
     ],
-    jurusan: ["Pemasaran (BDP)", "Bisnis Manajemen", "Akuntansi"],
+    jurusan: ["Tata Boga", "Tata Busana"],
     skillTip: "Pelajari pembukuan sederhana, digital marketing, dan teknik negosiasi penjualan.",
   },
   komunikasi: {
@@ -288,7 +288,7 @@ export const dimensionMeta: Record<
       "Customer Service",
       "Broadcaster / Penyiar",
     ],
-    jurusan: ["Broadcasting", "Manajemen Perkantoran", "Public Relations"],
+    jurusan: ["RPL", "TKJ"],
     skillTip: "Tingkatkan public speaking, copywriting, dan teknik presentasi di depan publik.",
   },
   kepemimpinan: {
@@ -299,7 +299,7 @@ export const dimensionMeta: Record<
       "Ketua Tim / Kepala Divisi",
       "Event Organizer Lead",
     ],
-    jurusan: ["Manajemen Perkantoran", "Bisnis Manajemen", "Broadcasting (Produksi)"],
+    jurusan: ["TKR", "TSM"],
     skillTip: "Latih delegasi tugas tim, perencanaan proyek, dan komunikasi kelompok yang efektif.",
   },
   operasional: {
@@ -310,7 +310,7 @@ export const dimensionMeta: Record<
       "Teknisi Bengkel / Lab",
       "Logistik & Perawatan Alat",
     ],
-    jurusan: ["Teknik Mesin", "Teknik Otomotif", "Teknik Elektronika", "TKJ (Hardware)"],
+    jurusan: ["TKR", "TSM", "TKJ"],
     skillTip: "Asah ketelitian, perawatan alat, dan kepatuhan SOP keselamatan kerja.",
   },
 };

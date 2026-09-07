@@ -14,6 +14,7 @@ import { Container } from "../ui/Container";
 import { Card, CardContent } from "../ui/Card";
 import { Badge } from "../ui/Badge";
 import { LinkButton } from "../ui/Button";
+import { EmptyState } from "../ui/EmptyState";
 
 interface Job {
   id: number;
@@ -29,18 +30,9 @@ interface Job {
   bkkVerified: boolean;
 }
 
-export const MAJOR_LIST = [
-  "RPL",
-  "TKJ",
-  "Multimedia",
-  "AKL",
-  "OTKP",
-  "Pemasaran",
-  "ELIN",
-  "TITL",
-  "TP",
-  "TKRO",
-];
+import { MAJOR_CODES } from "@/lib/jurusan";
+
+export const MAJOR_LIST: Readonly<string[]> = MAJOR_CODES;
 
 type VerificationFilter = "semua" | "terverifikasi" | "belum";
 
@@ -198,15 +190,10 @@ export function LokerFilterWidget() {
             </div>
           ) : filtered.length === 0 ? (
             jobs.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border-light bg-white p-12 text-center">
-                <Briefcase className="mx-auto h-10 w-10 text-slate-300" />
-                <h3 className="mt-4 font-semibold text-slate-900">
-                  Belum ada lowongan yang tersedia saat ini.
-                </h3>
-                <p className="mt-1 text-sm text-muted">
-                  Info lowongan dari BKK SMKN 1 Tengaran akan tampil di sini setelah tersedia.
-                </p>
-              </div>
+              <EmptyState
+                title="Belum Ada Lowongan Kerja"
+                message="Info lowongan kerja & magang dari BKK SMKN 1 Tengaran akan otomatis tampil di sini setelah data resmi diunggah."
+              />
             ) : (
               <div className="rounded-2xl border border-border-light bg-white p-10 text-center">
                 <Briefcase className="mx-auto h-10 w-10 text-slate-300" />

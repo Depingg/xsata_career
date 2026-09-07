@@ -18,8 +18,8 @@ interface Conversation {
 const conversations: Conversation[] = [
   { name: "Nanda", kelas: "XII TKJ 1", message: "Terima kasih Bu atas bimbingannya!", time: "09:15", unread: false, active: true },
   { name: "Rizky Pratama", kelas: "XII TKJ 2", message: "Bu, saya mau konsultasi soal pilihan karier", time: "08:40", unread: true },
-  { name: "Siti Rahma", kelas: "XI MM 1", message: "Apakah bisa pindah jadwal konseling?", time: "Kemarin", unread: true },
-  { name: "Dimas Adit", kelas: "XII AKL 1", message: "Baik Bu, terima kasih sudah diingatkan.", time: "Kemarin", unread: false },
+  { name: "Siti Rahma", kelas: "XI Tata Busana 1", message: "Apakah bisa pindah jadwal konseling?", time: "Kemarin", unread: true },
+  { name: "Dimas Adit", kelas: "XII Tata Boga 1", message: "Baik Bu, terima kasih sudah diingatkan.", time: "Kemarin", unread: false },
 ];
 
 const chatMessages = [
@@ -99,7 +99,7 @@ export default function PesanPage() {
                 <span className="flex h-9 w-9 items-center justify-center rounded-full bg-primary text-xs font-bold text-white">
                   {selected
                     ? selected.name.split(" ").map((w) => w[0]).slice(0, 2).join("")
-                    : "AP"}
+                    : "N"}
                 </span>
                 <div>
                   <p className="text-sm font-semibold text-slate-900">

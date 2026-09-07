@@ -20,6 +20,7 @@ import { PageHeader } from "@/components/ui/PageHeader";
 import { Card, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 interface Job {
   id: number;
@@ -147,11 +148,16 @@ export default function LowonganPage() {
         </div>
       )}
 
-      {loading ? (
+{loading ? (
         <div className="flex flex-col items-center justify-center gap-3 py-20">
-          <Loader2 className="h-8 w-8 animate-spin text-primary" />
+          <Loader2 className="h-8 w-8 animate-spin" />
           <p className="text-sm text-muted">Memuat data loker...</p>
         </div>
+      ) : jobs.length === 0 ? (
+        <EmptyState
+          title="Belum Ada Lowongan Kerja"
+          message="Info lowongan kerja & magang dari BKK SMKN 1 Tengaran akan otomatis tampil di sini setelah data resmi diunggah."
+        />
       ) : filtered.length === 0 ? (
         <div className="rounded-2xl border border-border-light bg-white p-10 text-center">
           <Briefcase className="mx-auto h-10 w-10 text-slate-300" />

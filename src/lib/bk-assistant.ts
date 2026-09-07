@@ -38,38 +38,16 @@ const JURUSAN_MAP: Record<string, JurusanInfo> = {
       "Teknik Telekomunikasi",
     ],
   },
-  mm: {
-    name: "Multimedia (MM)",
-    majors: [
-      "Desain Komunikasi Visual (DKV)",
-      "Animasi & Film / Televisi",
-      "Ilmu Komunikasi",
-      "Sistem Informasi (untuk karier desainer UI/UX)",
-      "D3 Desain Grafis / Multimedia",
-    ],
+  "tata-busana": {
+    name: "Tata Busana",
+    majors: ["D3 Desain Mode", "Tata Busana (vokasi)", "Teknologi Fesyen", "Manajemen Industri Fesyen"],
   },
-  akl: {
-    name: "Akuntansi & Keuangan Lembaga (AKL)",
-    majors: [
-      "Akuntansi",
-      "Manajemen",
-      "Perpajakan (D3/D4)",
-      "Administrasi Bisnis",
-      "Ekonomi Pembangunan",
-    ],
+  "tata-boga": {
+    name: "Tata Boga",
+    majors: ["D3 Tata Boga / Patiseri", "Teknologi Pangan", "Manajemen Perhotelan", "Kewirausahaan"],
   },
-  ap: {
-    name: "Manajemen Perkantoran (AP/OTKP)",
-    majors: [
-      "Administrasi Bisnis / Administrasi Publik",
-      "Manajemen",
-      "Sekretari (D3)",
-      "Ilmu Komunikasi",
-      "Manajemen Pajak",
-    ],
-  },
-  tkro: {
-    name: "Teknik Kendaraan Ringan Otomotif (TKRO)",
+  tkr: {
+    name: "Teknik Kendaraan Ringan (TKR)",
     majors: [
       "D3/D4 Teknik Otomotif & Mesin",
       "Teknik Mesin",
@@ -78,51 +56,13 @@ const JURUSAN_MAP: Record<string, JurusanInfo> = {
     ],
   },
   tsm: {
-    name: "Teknik & Bisnis Sepeda Motor (TBSM)",
+    name: "Teknik Sepeda Motor (TSM)",
     majors: [
       "D3 Teknik Otomotif",
       "Teknik Mesin",
       "Teknologi Otomotif",
       "Manajemen Bisnis Otomotif",
     ],
-  },
-  elin: {
-    name: "Teknik Elektronika Industri (ELIN)",
-    majors: [
-      "D3 Teknik Elektronika",
-      "Teknik Elektro",
-      "Teknik Mekatronika",
-      "Informatika & Robotika",
-    ],
-  },
-  titl: {
-    name: "Teknik Instalasi Tenaga Listrik (TITL)",
-    majors: ["Teknik Elektro", "D3 Teknik Listrik", "Teknik Energi Terbarukan", "Teknik Mekatronika"],
-  },
-  tp: {
-    name: "Teknik Pemesinan (TP)",
-    majors: ["Teknik Mesin", "D3 Teknik Pemesinan", "Teknik Manufaktur", "Teknik Mekatronika"],
-  },
-  dpib: {
-    name: "Desain Pemodelan & Informasi Bangunan (DPIB)",
-    majors: ["Teknik Sipil", "Arsitektur", "Teknik Struktur", "Manajemen Konstruksi"],
-  },
-  pemasaran: {
-    name: "Bisnis Daring & Pemasaran",
-    majors: [
-      "Manajemen Pemasaran",
-      "D3 Manajemen Bisnis",
-      "Ilmu Ekonomi / Ekonomi Bisnis",
-      "E-commerce & Digital Marketing",
-    ],
-  },
-  tb: {
-    name: "Tata Boga (TB)",
-    majors: ["D3 Tata Boga / Patiseri", "Teknologi Pangan", "Manajemen Perhotelan", "Kewirausahaan"],
-  },
-  tc: {
-    name: "Tata Busana (TC)",
-    majors: ["D3 Desain Mode", "Tata Busana (vokasi)", "Teknologi Fesyen", "Manajemen Industri Fesyen"],
   },
 };
 
@@ -132,18 +72,10 @@ function findJurusan(input: string): JurusanInfo | undefined {
   const combos: Array<[RegExp, string]> = [
     [/tkj|komputer.*jaringan|teknisi jaringan/, "tkj"],
     [/rpl|rekayasa.*perangkat lunak|software/, "rpl"],
-    [/multimedia|mm\b/, "mm"],
-    [/akl|akuntansi/, "akl"],
-    [/otkp|perkantoran|administrasi perkantoran|\bap\b/, "ap"],
-    [/tkro|kendaraan ringan|otomotif/, "tkro"],
-    [/tbsm|sepeda motor|\btsm\b/, "tsm"],
-    [/elin|elektronika/, "elin"],
-    [/titl|instalasi.*listrik|listrik/, "titl"],
-    [/pemesinan|teknik mesin/, "tp"],
-    [/dpib|pemodelan|bangunan|gambar bangunan/, "dpib"],
-    [/pemasaran|marketing|bisnis-daring/, "pemasaran"],
-    [/tata boga|boga/, "tb"],
-    [/tata busana|busana|fesyen|fashion/, "tc"],
+    [/tata busana|busana|fesyen|fashion/, "tata-busana"],
+    [/tata boga|boga|kuliner/, "tata-boga"],
+    [/tkr|kendaraan ringan|otomotif|mobil/, "tkr"],
+    [/tsm|sepeda motor/, "tsm"],
   ];
 
   for (const [regex, key] of combos) {
@@ -166,7 +98,7 @@ function replyKerjaVsKuliah(): string {
 }
 
 function replyTipsBerkas(): string {
-  return `Menyiapkan berkas lamaran itu kuncinya: rapi, jelas, dan relevan. 📋\n\nUntuk siswa SMK, lengkapi ini:\n\n1️⃣ CV singkat (1 halaman) — data diri, pendidikan, skill, pengalaman PKL, prestasi.\n2️⃣ Portofolio — khusus MM/RPL/TKJ: kumpulkan hasil karya & proyek dalam PDF atau tautan online.\n3️⃣ Surat lamaran — 3 paragraf: pembuka sopan, alasan cocok, dan penutup + kesediaan.\n4️⃣ Scan rapi — ijazah/SKL, KTP, KK, dan sertifikat pelatihan.\n5️⃣ Referensi — guru atau pembimbing PKL.\n\nTips Guru BK: sesuaikan CV dan surat lamaranmu dengan setiap lowongan. Jangan seragam untuk semua tempat, dan pastikan tidak ada typo! 💪`;
+  return `Menyiapkan berkas lamaran itu kuncinya: rapi, jelas, dan relevan. 📋\n\nUntuk siswa SMK, lengkapi ini:\n\n1️⃣ CV singkat (1 halaman) — data diri, pendidikan, skill, pengalaman PKL, prestasi.\n2️⃣ Portofolio — khusus RPL/TKJ: kumpulkan hasil karya & proyek dalam PDF atau tautan online.\n3️⃣ Surat lamaran — 3 paragraf: pembuka sopan, alasan cocok, dan penutup + kesediaan.\n4️⃣ Scan rapi — ijazah/SKL, KTP, KK, dan sertifikat pelatihan.\n5️⃣ Referensi — guru atau pembimbing PKL.\n\nTips Guru BK: sesuaikan CV dan surat lamaranmu dengan setiap lowongan. Jangan seragam untuk semua tempat, dan pastikan tidak ada typo! 💪`;
 }
 
 function replyInterview(): string {
@@ -195,7 +127,7 @@ export function generateReply(input: string): string {
   const isGreeting = /(halo|hallo|hello|hai\b|hi\b|assalamu|selamat (pagi|siang|sore|malam)|pagi {0,2}bu|siang {0,2}bu|sore {0,2}bu|malam {0,2}bu)/;
   const isThanks = /(terima kasih|makasih|thank|thanks)/;
   const isCareerDecision = /(kerja.*kuliah|kuliah.*kerja|kerja atau kuliah|kuliah atau kerja|melanjutkan (kuliah|pendidikan)|pilih (kerja|kuliah)|bingung.*(kerja|kuliah)|kerja dulu|langsung kerja|lanjut kuliah|bekerja dulu)/;
-  const isMajorRec = /(jurusan kuliah|rekomendasi.*jurusan|kuliah.*jurusan|jurusan.*(rpl|tkj|mm|akl|tkro|akuntansi)|ambil.*jurusan|kuliah.*(rpl|tkj|mm|akl|akuntansi)|pilih.*kuliah)/;
+  const isMajorRec = /(jurusan kuliah|rekomendasi.*jurusan|kuliah.*jurusan|jurusan.*(rpl|tkj|tata busana|tata boga|tkr|tsm)|ambil.*jurusan|kuliah.*(rpl|tkj|tkr|tsm)|pilih.*kuliah)/;
   const isCv = /(\bcv\b|curriculum|lamaran|portofolio|berkas|melamar)/;
   const isInterview = /(interview|wawancara|tes wawancara|hrd)/;
   const isMental = /(mental|gugup|cemas|tegang|stres|stress|percaya diri|minder|takut.*kerja|siap.*kerja|menyiapkan.*(mental|diri))/;
@@ -229,7 +161,7 @@ export function generateReply(input: string): string {
   if (isMajorRec.test(q)) {
     const info = findJurusan(q);
     if (info) return replyJurusan(info);
-    return `Seru! 🎓 Aku bisa merekomendasikan jurusan kuliah yang linear dengan jurusan SMK-mu.\n\nSebelum itu, jurusan SMK kamu apa ya? Misalnya: RPL, TKJ, Multimedia (MM), Akuntansi (AKL), Perkantoran (OTKP), Teknik Otomotif (TKRO), atau lainnya. Kasih tahu aku, nanti kubantu pilihkan yang paling cocok!`;
+    return `Seru! 🎓 Aku bisa merekomendasikan jurusan kuliah yang linear dengan jurusan SMK-mu.\n\nSebelum itu, jurusan SMK kamu apa ya? Misalnya: TKJ, RPL, Tata Busana, Tata Boga, TKR, atau TSM. Kasih tahu aku, nanti kubantu pilihkan yang paling cocok!`;
   }
 
   const jurusan = findJurusan(q);

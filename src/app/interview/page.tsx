@@ -22,6 +22,7 @@ import { Card, CardContent, CardHeader } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
+import { EmptyState } from "@/components/ui/EmptyState";
 
 const student = {
   name: "Nanda",
@@ -30,32 +31,20 @@ const student = {
   nis: "12345678",
 };
 
-const communicationScore = 82;
+const communicationScore: number | null = null;
 
-const communication = [
-  { label: "Kejelasan & Struktur Bicara", value: 85 },
-  { label: "Bahasa Tubuh & Gestur", value: 78 },
-  { label: "Mendengarkan Aktif", value: 80 },
-  { label: "Kepercayaan Diri", value: 76 },
-];
+const communication: { label: string; value: number }[] = [];
 
-const skillGaps = [
-  { skill: "Komunikasi & Wawancara", current: 82, target: 90 },
-  { skill: "Public Speaking", current: 68, target: 85 },
-  { skill: "CV, Surat Lamaran, Portofolio", current: 85, target: 90 },
-  { skill: "Teknis (Figma, HTML/CSS, Dasar IT)", current: 72, target: 85 },
-  { skill: "Kerja Sama Tim & Profesionalisme", current: 84, target: 90 },
-];
+const skillGaps: { skill: string; current: number; target: number }[] = [];
 
-const aiRecommendations = [
-  "Latih wawancara dengan metode STAR (Situation, Task, Action, Result) minimal 2 kali per minggu.",
-  "Perkuat public speaking: biasakan presentasi di depan kelas dan rekam latihan untuk evaluasi.",
-  "Perbarui CV dan portofolio agar menonjolkan proyek TKJ, sertakan tautan karya nyata.",
-  "Naikkan kemampuan teknis dengan kursus singkat Figma, HTML/CSS, dan dasar JavaScript.",
-  "Perluas jaringan profesional: ikuti webinar industri dan bangun profil LinkedIn sejak dulu.",
-];
+const aiRecommendations: string[] = [];
 
-const verificationToken = `XSATA-RAPOR|v1|${student.nis}|${student.name.toUpperCase()}|KOM-${communicationScore}|SKK-82|2026-09-06`;
+const skorSkk =
+  skillGaps.length > 0
+    ? Math.round(skillGaps.reduce((sum, g) => sum + g.current, 0) / skillGaps.length)
+    : 0;
+
+const verificationToken = `XSATA-RAPOR|v1|${student.nis}|${student.name.toUpperCase()}|KOM-${communicationScore ?? 0}|SKK-${skorSkk}|2026-09-06`;
 
 export default function InterviewRaporPage() {
   const [qrDataUrl, setQrDataUrl] = useState("");
@@ -121,7 +110,7 @@ export default function InterviewRaporPage() {
       doc.setFont("helvetica", "bold");
       doc.setFontSize(12);
       doc.setTextColor(0, 82, 204);
-      doc.text(`${communicationScore}/100`, 62, 64);
+      doc.text(`${communicationScore ?? "-"}/100`, 62, 64);
       doc.setTextColor(15, 23, 42);
       doc.setFontSize(10);
 
@@ -283,28 +272,32 @@ export default function InterviewRaporPage() {
               <h3 className="font-semibold text-slate-900">Skor Komunikasi</h3>
             </div>
             <span className="rounded-xl bg-accent px-3 py-1.5 text-lg font-extrabold text-primary">
-              {communicationScore}
+              {communicationScore ?? "-"}
               <span className="text-xs font-medium text-muted">/100</span>
             </span>
           </CardHeader>
           <CardContent className="space-y-4">
-            {communication.map((item) => (
-              <div key={item.label}>
-                <div className="mb-1.5 flex items-center justify-between text-sm">
-                  <span className="font-medium text-slate-700">{item.label}</span>
-                  <span className="font-semibold text-primary">{item.value}</span>
+            {communication.length > 0 ? (
+              communication.map((item) => (
+                <div key={item.label}>
+                  <div className="mb-1.5 flex items-center justify-between text-sm">
+                    <span className="font-medium text-slate-700">{item.label}</span>
+                    <span className="font-semibold text-primary">{item.value}</span>
+                  </div>
+                  <ProgressBar value={item.value} tone={item.value >= 80 ? "success" : "primary"} />
                 </div>
-                <ProgressBar value={item.value} tone={item.value >= 80 ? "success" : "primary"} />
-              </div>
-            ))}
+              ))
+            ) : (
+              <EmptyState message="Belum ada detail skor komunikasi untuk ditampilkan." className="py-6" />
+            )}
             <div className="rounded-xl bg-accent p-4">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-4 w-4 text-primary" />
                 <p className="text-sm font-semibold text-primary">Penilaian AI</p>
               </div>
               <p className="mt-1 text-sm text-slate-700">
-                Komunikasi cukup baik. Fokus tingkatkan kepercayaan diri dan bahasa tubuh saat
-                menjawab pertanyaan wawancara.
+                Penilaian AI akan otomatis muncul setelah kamu menyelesaikan sesi tes
+                bimbingan/wawancara.
               </p>
             </div>
           </CardContent>
@@ -358,39 +351,43 @@ export default function InterviewRaporPage() {
             <h3 className="font-semibold text-slate-900">Analisis Kesenjangan Skill</h3>
           </CardHeader>
           <CardContent className="space-y-4">
-            {skillGaps.map((gap) => {
-              const diff = gap.target - gap.current;
-              return (
-                <div key={gap.skill}>
-                  <div className="mb-1.5 flex items-center justify-between text-sm">
-                    <span className="font-medium text-slate-700">{gap.skill}</span>
-                    <span className="flex items-center gap-2">
-                      <span className="text-xs text-muted">
-                        Saat ini <b className="text-slate-900">{gap.current}</b> / Target{" "}
-                        <b className="text-slate-900">{gap.target}</b>
+            {skillGaps.length > 0 ? (
+              skillGaps.map((gap) => {
+                const diff = gap.target - gap.current;
+                return (
+                  <div key={gap.skill}>
+                    <div className="mb-1.5 flex items-center justify-between text-sm">
+                      <span className="font-medium text-slate-700">{gap.skill}</span>
+                      <span className="flex items-center gap-2">
+                        <span className="text-xs text-muted">
+                          Saat ini <b className="text-slate-900">{gap.current}</b> / Target{" "}
+                          <b className="text-slate-900">{gap.target}</b>
+                        </span>
+                        {diff > 0 ? (
+                          <Badge tone="danger">{diff} poin lagi</Badge>
+                        ) : (
+                          <Badge tone="success">Tercapai</Badge>
+                        )}
                       </span>
-                      {diff > 0 ? (
-                        <Badge tone="danger">{diff} poin lagi</Badge>
-                      ) : (
-                        <Badge tone="success">Tercapai</Badge>
-                      )}
-                    </span>
+                    </div>
+                    <div className="relative">
+                      <ProgressBar value={gap.current} tone={diff > 0 ? "warning" : "success"} />
+                      <span
+                        className="absolute top-0 h-full w-0.5 rounded-full bg-slate-900"
+                        style={{ left: `${Math.min(100, gap.target)}%` }}
+                        title={`Target ${gap.target}`}
+                      />
+                    </div>
+                    <div className="mt-1 flex justify-between text-[11px] text-muted">
+                      <span>Level saat ini</span>
+                      <span>Target {gap.target}</span>
+                    </div>
                   </div>
-                  <div className="relative">
-                    <ProgressBar value={gap.current} tone={diff > 0 ? "warning" : "success"} />
-                    <span
-                      className="absolute top-0 h-full w-0.5 rounded-full bg-slate-900"
-                      style={{ left: `${Math.min(100, gap.target)}%` }}
-                      title={`Target ${gap.target}`}
-                    />
-                  </div>
-                  <div className="mt-1 flex justify-between text-[11px] text-muted">
-                    <span>Level saat ini</span>
-                    <span>Target {gap.target}</span>
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })
+            ) : (
+              <EmptyState message="Belum ada data kesenjangan skill. Analisis akan muncul setelah kamu menyelesaikan sesi tes bimbingan/wawancara." />
+            )}
           </CardContent>
         </Card>
 
@@ -401,14 +398,18 @@ export default function InterviewRaporPage() {
             <h3 className="font-semibold text-slate-900">Rekomendasi Perbaikan dari AI</h3>
           </CardHeader>
           <CardContent>
-            <ul className="space-y-3">
-              {aiRecommendations.map((rec) => (
-                <li key={rec} className="flex items-start gap-3 rounded-xl bg-accent-soft p-3.5">
-                  <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
-                  <span className="text-sm leading-relaxed text-slate-700">{rec}</span>
-                </li>
-              ))}
-            </ul>
+            {aiRecommendations.length > 0 ? (
+              <ul className="space-y-3">
+                {aiRecommendations.map((rec) => (
+                  <li key={rec} className="flex items-start gap-3 rounded-xl bg-accent-soft p-3.5">
+                    <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-success" />
+                    <span className="text-sm leading-relaxed text-slate-700">{rec}</span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <EmptyState message="Belum ada rekomendasi perbaikan. Rekomendasi AI akan muncul setelah kamu menyelesaikan sesi tes bimbingan/wawancara." />
+            )}
             <div className="mt-4 rounded-xl border border-border-light bg-white p-4">
               <div className="flex items-center gap-2">
                 <FileText className="h-4 w-4 text-primary" />
