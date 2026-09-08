@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { testimoniStore } from "@/lib/testimoni-store";
 import type { Testimoni } from "@/lib/testimoni-store";
 
-const ROLES = ["Siswa", "Guru BK"];
+const ROLES = ["Siswa"];
 
 export async function GET() {
   const data = testimoniStore.getAll();
@@ -24,7 +24,7 @@ export async function POST(request: Request) {
 
     if (!ROLES.includes(role as string)) {
       return NextResponse.json(
-        { error: "Role harus salah satu dari: Siswa, Guru BK." },
+        { error: "Role harus salah satu dari: Siswa." },
         { status: 400 }
       );
     }

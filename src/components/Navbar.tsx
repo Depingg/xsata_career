@@ -12,7 +12,6 @@ import type { Session } from "@/lib/auth-store";
 const navLinks = [
   { label: "Beranda", href: "/#hero" },
   { label: "Layanan", href: "/#layanan" },
-  { label: "Lowongan", href: "/#lowongan" },
   { label: "Tentang", href: "/#tentang" },
 ];
 
@@ -35,16 +34,15 @@ export function Navbar() {
     };
   }, []);
 
-  const isSiswa = session?.role === "siswa";
-  const nama = session?.nama?.trim() || (isSiswa ? "Siswa" : "Guru BK");
-  const roleLabel = isSiswa ? "Siswa" : "Guru BK";
-  const noInduk = isSiswa ? session?.nis : session?.nip;
+  const nama = session?.nama?.trim() || "Siswa";
+  const roleLabel = "Siswa";
+  const noInduk = session?.nis;
   const initials = nama.charAt(0).toUpperCase();
-  const dashboardHref = session?.role === "siswa" ? "/siswa" : "/admin";
+  const dashboardHref = "/siswa";
 
   function handleDashboard() {
     setMenuOpen(false);
-    router.push(session?.role === "siswa" ? "/siswa" : "/admin");
+    router.push("/siswa");
   }
 
   function handleLogout() {
@@ -108,7 +106,7 @@ export function Navbar() {
                       <p className="text-sm font-semibold text-slate-900">{nama}</p>
                       <p className="mt-0.5 text-xs text-slate-500">
                         {roleLabel}
-                        {noInduk ? ` • ${isSiswa ? "NIS" : "NIP"}: ${noInduk}` : ""}
+                        {noInduk ? ` • NIS: ${noInduk}` : ""}
                       </p>
                     </div>
                     <div className="p-1.5">
@@ -174,7 +172,7 @@ export function Navbar() {
                       <p className="text-sm font-semibold text-slate-900">{nama}</p>
                       <p className="text-xs text-slate-500">
                         {roleLabel}
-                        {noInduk ? ` • ${isSiswa ? "NIS" : "NIP"}: ${noInduk}` : ""}
+                        {noInduk ? ` • NIS: ${noInduk}` : ""}
                       </p>
                     </div>
                   </button>

@@ -1,7 +1,7 @@
 export interface Testimoni {
   id: number;
   nama: string;
-  role: "Siswa" | "Guru BK";
+  role: "Siswa";
   detail: string;
   rating: number;
   pesan: string;

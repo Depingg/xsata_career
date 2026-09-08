@@ -1,9 +1,8 @@
-export type Role = "siswa" | "guru" | "admin";
+export type Role = "siswa";
 
 export interface UserProfile {
   role: Role;
   nis?: string;
-  nip?: string;
   nama: string;
   initials: string;
   jurusan?: string;
@@ -13,7 +12,6 @@ export interface UserProfile {
 export interface Session {
   role: Role;
   nis?: string;
-  nip?: string;
   nama: string;
   initials: string;
   jurusan?: string;
@@ -30,13 +28,6 @@ const DEFAULT_SISWA: Omit<Session, "nis"> = {
   userRole: "Siswa SMK • RPL",
 };
 
-const DEFAULT_GURU: Omit<Session, "nip"> = {
-  role: "guru",
-  nama: "Bu Ratna Dewi",
-  initials: "BD",
-  userRole: "Guru BK • SMK Negeri 1",
-};
-
 export const mockUsers: Record<string, UserProfile> = {
   "12345678": {
     role: "siswa",
@@ -48,33 +39,19 @@ export const mockUsers: Record<string, UserProfile> = {
   },
 };
 
-export function buildSession(role: Role, id: string): Session {
-  if (role === "siswa") {
-    const profile = mockUsers[id];
-    if (profile) {
-      return {
-        role: "siswa",
-        nis: id,
-        nama: profile.nama,
-        initials: profile.initials,
-        jurusan: profile.jurusan,
-        userRole: profile.userRole,
-      };
-    }
-    return { ...DEFAULT_SISWA, nis: id };
-  }
-
+export function buildSession(id: string): Session {
   const profile = mockUsers[id];
-  if (profile?.role === "guru") {
+  if (profile) {
     return {
-      role: "guru",
-      nip: id,
+      role: "siswa",
+      nis: id,
       nama: profile.nama,
       initials: profile.initials,
+      jurusan: profile.jurusan,
       userRole: profile.userRole,
     };
   }
-  return { ...DEFAULT_GURU, nip: id };
+  return { ...DEFAULT_SISWA, nis: id };
 }
 
 export function persistSession(session: Session) {
@@ -130,5 +107,5 @@ export function clearSession() {
 
 export function sessionDashboardPath(session: Session | null): string {
   if (session?.role === "siswa") return "/siswa";
-  return "/admin";
+  return "/siswa";
 }

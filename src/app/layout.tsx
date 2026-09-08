@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Plus_Jakarta_Sans } from "next/font/google";
-import { FloatingChatbot } from "@/components/FloatingChatbot";
 import "./globals.css";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -15,11 +14,10 @@ export const metadata: Metadata = {
     template: "%s | XSata Career",
   },
   description:
-    "Portal layanan bimbingan konseling dan BKK XSata Career untuk siswa dan Guru BK SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI, asesmen minat bakat, dan rekomendasi pekerjaan.",
+    "Portal layanan bimbingan konseling dan BKK XSata Career untuk siswa SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI, asesmen minat bakat, dan rekomendasi pekerjaan.",
   keywords: [
     "SMK",
     "karier",
-    "BK",
     "bimbingan konseling",
     "AI",
     "XSata",
@@ -29,7 +27,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "XSata Career AI Platform",
     description:
-      "Portal layanan bimbingan konseling dan BKK untuk siswa dan Guru BK SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI.",
+      "Portal layanan bimbingan konseling dan BKK untuk siswa SMKN 1 Tengaran. Konsultasi karier cerdas berbasis AI.",
     type: "website",
     locale: "id_ID",
   },
@@ -51,10 +49,10 @@ export default function RootLayout({
       lang="id"
       className={`${plusJakarta.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         {children}
-        <FloatingChatbot />
       </body>
     </html>
   );

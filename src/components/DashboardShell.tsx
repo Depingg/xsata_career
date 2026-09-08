@@ -11,9 +11,6 @@ import {
   Bot,
   ClipboardCheck,
   Briefcase,
-  BookOpen,
-  TrendingUp,
-  Building2,
   LogOut,
   FileText,
   Bell,
@@ -22,21 +19,19 @@ import {
   ChevronDown,
   User,
   Home,
+  Mic,
+  Book,
 } from "lucide-react";
 import { Logo } from "./Logo";
 
-export type Role = "siswa" | "guru" | "admin";
+export type Role = "siswa";
 
 function defaultName(role: Role): string {
-  return role === "siswa" ? "Siswa" : role === "guru" ? "Guru BK" : "Admin";
+  return role === "siswa" ? "Siswa" : "Siswa";
 }
 
 function defaultUserRole(role: Role): string {
-  return role === "siswa"
-    ? "Siswa SMK"
-    : role === "guru"
-    ? "Guru BK"
-    : "Administrator";
+  return role === "siswa" ? "Siswa SMK" : "Siswa SMK";
 }
 
 interface NavItem {
@@ -48,18 +43,11 @@ interface NavItem {
 const siswaNav: NavItem[] = [
   { label: "Dasbor", href: "/siswa", icon: LayoutDashboard },
   { label: "Konsultasi AI Karier", href: "/siswa/konsultasi", icon: Bot },
+  { label: "AI Voice Konsultasi", href: "/siswa/voice", icon: Mic },
   { label: "Asesmen Minat", href: "/siswa/asesmen", icon: ClipboardCheck },
   { label: "Rapor Kesiapan", href: "/interview", icon: FileText },
+  { label: "Materi & Panduan", href: "/siswa/materi", icon: Book },
   { label: "Lowongan", href: "/siswa/lowongan", icon: Briefcase },
-  { label: "Materi & Panduan", href: "/siswa/materi", icon: BookOpen },
-];
-
-const adminNav: NavItem[] = [
-  { label: "Dasbor", href: "/admin", icon: LayoutDashboard },
-  { label: "Input Nilai & Skill", href: "/admin/nilai-skill", icon: ClipboardCheck },
-  { label: "Kesiapan Kerja & Skill Gap", href: "/admin/kesiapan-kerja", icon: TrendingUp },
-  { label: "Kelola Lowongan BKK", href: "/admin/lowongan", icon: Briefcase },
-  { label: "Data Mitra & Rekomendasi", href: "/admin/mitra", icon: Building2 },
 ];
 
 interface DashboardShellProps {
@@ -87,7 +75,7 @@ export function DashboardShell({ role, children }: DashboardShellProps) {
     };
   }, []);
 
-  const navItems = role === "siswa" ? siswaNav : adminNav;
+  const navItems = siswaNav;
 
   const displayName = session?.nama?.trim() || defaultName(role);
   const displayUserRole =
@@ -100,9 +88,7 @@ export function DashboardShell({ role, children }: DashboardShellProps) {
 
   function handleDashboard() {
     setProfileOpen(false);
-    const target =
-      session?.role === "siswa" ? "/siswa" : "/admin";
-    router.push(target);
+    router.push("/siswa");
   }
 
   function handleHome() {

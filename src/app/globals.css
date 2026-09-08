@@ -43,36 +43,6 @@ section[id] {
   scroll-margin-top: 4rem;
 }
 
-@keyframes voice-wave {
-  0%,
-  100% {
-    transform: scaleY(0.3);
-  }
-  50% {
-    transform: scaleY(1);
-  }
-}
-
-.animate-voice-wave {
-  transform-origin: center;
-  animation: voice-wave 0.9s ease-in-out infinite;
-}
-
-@keyframes voice-panel-in {
-  from {
-    opacity: 0;
-    transform: translateY(6px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-voice-panel-in {
-  animation: voice-panel-in 0.25s ease-out both;
-}
-
 * {
   scrollbar-width: thin;
   scrollbar-color: #cbd5e1 transparent;
@@ -91,4 +61,14 @@ section[id] {
 ::selection {
   background-color: #e6f0ff;
   color: #0052cc;
+}
+
+@keyframes voice-wave {
+  0%,
+  100% {
+    transform: scaleY(0.3);
+  }
+  50% {
+    transform: scaleY(1);
+  }
 }

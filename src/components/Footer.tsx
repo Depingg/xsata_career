@@ -3,27 +3,11 @@ import { Mail, Phone, MapPin } from "lucide-react";
 import { Logo } from "./Logo";
 import { Container } from "./ui/Container";
 
-const layananLinks = [
-  { label: "Konsultasi AI Karier", href: "/#layanan" },
-  { label: "Asesmen Minat Bakat", href: "/#layanan" },
-  { label: "Lowongan Pekerjaan", href: "/#lowongan" },
-  { label: "Panduan Karier", href: "/#layanan" },
-  { label: "Program Bimbingan", href: "/#tentang" },
-];
-
-const bantuanLinks = [
-  { label: "Tentang Kami", href: "/#tentang" },
-  { label: "Cara Kerja", href: "/#cara-kerja" },
-  { label: "FAQ", href: "/#faq" },
-  { label: "Kontak", href: "/#kontak" },
-  { label: "Pusat Bantuan", href: "/#kontak" },
-];
-
 export function Footer() {
   return (
     <footer className="border-t border-border-light bg-white">
       <Container className="py-14">
-        <div className="grid gap-10 lg:grid-cols-5">
+        <div className="grid gap-10 lg:grid-cols-3">
           <div className="lg:col-span-2">
             <Logo />
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
@@ -65,38 +49,6 @@ export function Footer() {
           </div>
 
           <div>
-            <h3 className="text-sm font-semibold text-slate-900">Layanan</h3>
-            <ul className="mt-4 space-y-2.5">
-              {layananLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="text-sm font-semibold text-slate-900">Bantuan</h3>
-            <ul className="mt-4 space-y-2.5">
-              {bantuanLinks.map((link) => (
-                <li key={link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-slate-600 transition-colors hover:text-primary"
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
             <h3 className="text-sm font-semibold text-slate-900">Kontak</h3>
             <ul className="mt-4 space-y-3 text-sm text-slate-600">
               <li className="flex items-start gap-2.5">
@@ -129,6 +81,12 @@ export function Footer() {
           <p className="text-sm text-slate-500">
             &copy; 2026 XSata Career. Seluruh hak cipta dilindungi.
           </p>
+          <Link
+            href="/admin/dashboard"
+            className="text-xs font-medium text-slate-400 transition-colors hover:text-primary"
+          >
+            Akses Admin
+          </Link>
         </Container>
       </div>
     </footer>

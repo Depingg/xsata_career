@@ -9,7 +9,6 @@ function dashboardPath(raw: string): string | null {
     const session = JSON.parse(decodeURIComponent(raw)) as {
       role?: string;
     };
-    if (session.role === "guru") return "/admin";
     if (session.role === "siswa") return "/siswa";
     return null;
   } catch {

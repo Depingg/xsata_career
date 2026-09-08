@@ -33,7 +33,7 @@ const services = [
   {
     icon: BookOpen,
     title: "Bank Materi & Panduan",
-    desc: "Ribuan panduan, modul bimbingan karier, dan tips persiapan kerja untuk siswa dan guru BK.",
+    desc: "Ribuan panduan, modul bimbingan karier, dan tips persiapan kerja untuk siswa.",
     tag: "Lengkap",
   },
   {

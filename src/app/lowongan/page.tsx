@@ -189,7 +189,7 @@ export default function PublicLowonganPage() {
 
           <div className="mt-10 rounded-2xl bg-accent p-6 text-center">
             <p className="font-semibold text-slate-800">Ingin melihat lowongan yang sesuai minat dan mendapat rekomendasi AI?</p>
-            <p className="mt-1 text-sm text-slate-600">Masuk menggunakan NIS/NIP untuk akses penuh rekomendasi personal dan proses lamaran.</p>
+            <p className="mt-1 text-sm text-slate-600">Masuk menggunakan NIS untuk akses penuh rekomendasi personal dan proses lamaran.</p>
             <div className="mt-4 flex justify-center">
               <LinkButton href="/login">Daftar Gratis</LinkButton>
             </div>

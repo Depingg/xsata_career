@@ -187,8 +187,8 @@ export default function KonsultasiPage() {
         <div className="flex items-center gap-2">
           <Sparkles className="h-4 w-4 text-primary" />
           <span>
-            Hasil konsultasi AI bersifat referensi. Konsultasikan lebih lanjut
-            dengan Guru BK untuk keputusan karier.
+            Hasil konsultasi AI bersifat referensi. Gunakan sebagai bahan
+            pertimbangan untuk keputusan kariermu.
           </span>
         </div>
         <div className="flex items-center gap-3 text-muted">
