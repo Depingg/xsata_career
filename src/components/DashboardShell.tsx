@@ -43,7 +43,7 @@ interface NavItem {
 const siswaNav: NavItem[] = [
   { label: "Dasbor", href: "/siswa", icon: LayoutDashboard },
   { label: "Konsultasi AI Karier", href: "/siswa/konsultasi", icon: Bot },
-  { label: "AI Voice Konsultasi", href: "/siswa/voice", icon: Mic },
+  { label: "Guru BK Virtual", href: "/siswa/voice", icon: Mic },
   { label: "Asesmen Minat", href: "/siswa/asesmen", icon: ClipboardCheck },
   { label: "Rapor Kesiapan", href: "/interview", icon: FileText },
   { label: "Materi & Panduan", href: "/siswa/materi", icon: Book },

@@ -1,4 +1,4 @@
-import { Bot, ClipboardCheck, Briefcase, LineChart, BookOpen, FileText } from "lucide-react";
+import { Bot, Mic, ClipboardCheck, FileText, BookOpen, Briefcase } from "lucide-react";
 import Link from "next/link";
 import { Container } from "../ui/Container";
 import { SectionHeading } from "../ui/SectionHeading";
@@ -7,41 +7,46 @@ import { LinkButton } from "../ui/Button";
 const services = [
   {
     icon: Bot,
-    title: "Konsultasi Karier AI",
+    title: "Konsultasi AI Karier",
     desc: "Tanyakan apa pun soal karier, jurusan, dan masa depanmu. Asisten AI menjawab dengan rekomendasi personal.",
     tag: "Populer",
     highlighted: true,
+    href: "/siswa/konsultasi",
+  },
+  {
+    icon: Mic,
+    title: "Guru BK Virtual",
+    desc: "Sesi percakapan suara langsung dengan AI — ucapkan pertanyaan bimbinganmu dan dapatkan respons lisan secara real-time.",
+    tag: "Terbaru",
+    href: "/siswa/voice",
   },
   {
     icon: ClipboardCheck,
-    title: "Asesmen Minat & Bakat",
+    title: "Asesmen Minat",
     desc: "Tes psikometri terstandar untuk mengidentifikasi potensi dan merekomendasikan karier yang tepat.",
     tag: "Terstandar",
-  },
-  {
-    icon: Briefcase,
-    title: "Lowongan Magang & Kerja",
-    desc: "Akses lowongan kerja, magang (PKL), dan beasiswa dari mitra industri yang sudah terverifikasi.",
-    tag: "Terbaru",
-  },
-  {
-    icon: LineChart,
-    title: "Pemetaan Progres Karier",
-    desc: "Pantau perkembangan bimbingan, konsultasi, dan rencana karier dalam satu dasbor.",
-    tag: "Terintegrasi",
-  },
-  {
-    icon: BookOpen,
-    title: "Bank Materi & Panduan",
-    desc: "Ribuan panduan, modul bimbingan karier, dan tips persiapan kerja untuk siswa.",
-    tag: "Lengkap",
+    href: "/siswa/asesmen",
   },
   {
     icon: FileText,
-    title: "Bank Soal & Latihan",
-    desc: "Akses kumpulan soal latihan psikotes, tes kerja, dan persiapan asesmen karier yang dapat diakses langsung dari dasbor.",
+    title: "Rapor Kesiapan",
+    desc: "Pantau kesiapan kariermu melalui rapor bimbingan, konsultasi, dan rencana kerja dalam satu dasbor.",
+    tag: "Terintegrasi",
+    href: "/siswa/rapor",
+  },
+  {
+    icon: BookOpen,
+    title: "Materi & Panduan",
+    desc: "Modul bimbingan karier, panduan, dan tips persiapan kerja untuk siswa SMK.",
     tag: "Lengkap",
-    href: "/siswa/asesmen",
+    href: "/siswa/materi",
+  },
+  {
+    icon: Briefcase,
+    title: "Lowongan",
+    desc: "Akses lowongan kerja, magang (PKL), dan beasiswa dari mitra industri yang sudah terverifikasi.",
+    tag: "Terbaru",
+    href: "/siswa/lowongan",
   },
 ];
 
