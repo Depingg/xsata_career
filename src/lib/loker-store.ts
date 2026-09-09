@@ -28,10 +28,6 @@ export const lokerStore = {
     return store;
   },
 
-  getById(id: number): Loker | undefined {
-    return store.find((l) => l.id === id);
-  },
-
   add(data: Omit<Loker, "id" | "saved">): Loker {
     const loker: Loker = {
       ...data,

@@ -1,14 +1,5 @@
 export type Role = "siswa";
 
-export interface UserProfile {
-  role: Role;
-  nis?: string;
-  nama: string;
-  initials: string;
-  jurusan?: string;
-  userRole: string;
-}
-
 export interface Session {
   role: Role;
   nis?: string;
@@ -28,7 +19,7 @@ const DEFAULT_SISWA: Omit<Session, "nis"> = {
   userRole: "Siswa SMK • RPL",
 };
 
-export const mockUsers: Record<string, UserProfile> = {
+export const mockUsers: Record<string, Session> = {
   "12345678": {
     role: "siswa",
     nis: "12345678",
@@ -103,9 +94,4 @@ export function clearSession() {
   } catch {
     /* abaikan */
   }
-}
-
-export function sessionDashboardPath(session: Session | null): string {
-  if (session?.role === "siswa") return "/siswa";
-  return "/siswa";
 }

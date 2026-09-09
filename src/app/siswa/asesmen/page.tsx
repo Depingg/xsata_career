@@ -234,7 +234,7 @@ export default function AsesmenPage() {
                 <RotateCcw className="h-4 w-4" />
                 Ulangi Asesmen
               </Button>
-              <Link href="/interview">
+              <Link href="/siswa/rapor">
                 <Button variant="primary" className="w-full sm:w-auto">
                   <BarChart3 className="h-4 w-4" />
                   Lihat Rapor Kesiapan Karier

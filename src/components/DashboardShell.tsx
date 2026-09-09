@@ -26,14 +26,6 @@ import { Logo } from "./Logo";
 
 export type Role = "siswa";
 
-function defaultName(role: Role): string {
-  return role === "siswa" ? "Siswa" : "Siswa";
-}
-
-function defaultUserRole(role: Role): string {
-  return role === "siswa" ? "Siswa SMK" : "Siswa SMK";
-}
-
 interface NavItem {
   label: string;
   href: string;
@@ -45,7 +37,7 @@ const siswaNav: NavItem[] = [
   { label: "Konsultasi AI Karier", href: "/siswa/konsultasi", icon: Bot },
   { label: "Guru BK Virtual", href: "/siswa/voice", icon: Mic },
   { label: "Asesmen Minat", href: "/siswa/asesmen", icon: ClipboardCheck },
-  { label: "Rapor Kesiapan", href: "/interview", icon: FileText },
+  { label: "Rapor Kesiapan", href: "/siswa/rapor", icon: FileText },
   { label: "Materi & Panduan", href: "/siswa/materi", icon: Book },
   { label: "Lowongan", href: "/siswa/lowongan", icon: Briefcase },
 ];
@@ -77,9 +69,8 @@ export function DashboardShell({ role, children }: DashboardShellProps) {
 
   const navItems = siswaNav;
 
-  const displayName = session?.nama?.trim() || defaultName(role);
-  const displayUserRole =
-    session?.userRole?.trim() || defaultUserRole(role);
+  const displayName = session?.nama?.trim() || "Siswa";
+  const displayUserRole = session?.userRole?.trim() || "Siswa SMK";
 
   function handleLogout() {
     clearSession();

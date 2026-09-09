@@ -579,18 +579,6 @@ export function saveAsesmen(data: PersistedAsesmen) {
   }
 }
 
-export function loadAsesmen(): PersistedAsesmen | null {
-  try {
-    const raw = window.localStorage.getItem(ASESMEN_STORAGE_KEY);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw) as PersistedAsesmen;
-    if (typeof parsed?.result?.scores !== "object") return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-
 export function clearAsesmen() {
   try {
     window.localStorage.removeItem(ASESMEN_STORAGE_KEY);
