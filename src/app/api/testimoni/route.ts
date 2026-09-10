@@ -1,17 +1,14 @@
 import { NextResponse } from "next/server";
-import { testimoniStore } from "@/lib/testimoni-store";
-import type { Testimoni } from "@/lib/testimoni-store";
-
-const ROLES = ["Siswa"];
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const data = testimoniStore.getAll();
+  const data = await prisma.testimoni.findMany({ orderBy: { createdAt: "desc" } });
   return NextResponse.json({ data });
 }
 
 export async function POST(request: Request) {
   try {
-    const body = (await request.json()) as Partial<Omit<Testimoni, "id" | "createdAt">>;
+    const body = (await request.json()) as Record<string, unknown>;
 
     const { nama, role, detail, rating, pesan } = body;
 
@@ -22,7 +19,7 @@ export async function POST(request: Request) {
       );
     }
 
-    if (!ROLES.includes(role as string)) {
+    if (role !== "Siswa") {
       return NextResponse.json(
         { error: "Role harus salah satu dari: Siswa." },
         { status: 400 }
@@ -36,12 +33,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const testimoni = testimoniStore.add({
-      nama,
-      role: role as Testimoni["role"],
-      detail: typeof detail === "string" ? detail : "",
-      rating,
-      pesan,
+    const testimoni = await prisma.testimoni.create({
+      data: {
+        nama: String(nama),
+        role: String(role),
+        detail: typeof detail === "string" ? detail : "",
+        rating,
+        pesan: String(pesan),
+      },
     });
 
     return NextResponse.json(testimoni, { status: 201 });

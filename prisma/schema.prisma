@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Siswa {
+  id           Int      @id @default(autoincrement())
+  nis          String   @unique
+  nisn         String   @unique
+  password     String
+  namaLengkap  String
+  kelas        String
+  jurusan      String
+  rombel       String
+  jenisKelamin String
+  email        String   @default("")
+  statusAktif  Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model Loker {
+  id          Int      @id @default(autoincrement())
+  title       String
+  company     String
+  location    String
+  type        String
+  salary      String
+  match       Int      @default(0)
+  posted      String
+  logo        String
+  jurusan     String   @default("[]")
+  bkkVerified Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Testimoni {
+  id        Int      @id @default(autoincrement())
+  nama      String
+  role      String
+  detail    String   @default("")
+  rating    Int
+  pesan     String
+  createdAt DateTime @default(now())
+}

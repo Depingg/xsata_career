@@ -2,47 +2,74 @@ export type Role = "siswa";
 
 export interface Session {
   role: Role;
-  nis?: string;
+  nis: string;
+  nisn: string;
   nama: string;
+  kelas: string;
+  jurusan: string;
+  rombel: string;
+  jenisKelamin: "L" | "P";
+  email: string;
   initials: string;
-  jurusan?: string;
   userRole: string;
 }
 
 export const SESSION_KEY = "xsata-auth";
 
-const DEFAULT_SISWA: Omit<Session, "nis"> = {
-  role: "siswa",
-  nama: "Andini Putri",
-  initials: "AP",
-  jurusan: "RPL",
-  userRole: "Siswa SMK • RPL",
-};
+export interface LoginResult {
+  ok: boolean;
+  session?: Session;
+  error?: string;
+}
 
-export const mockUsers: Record<string, Session> = {
-  "12345678": {
-    role: "siswa",
-    nis: "12345678",
-    nama: "Nanda",
-    initials: "N",
-    jurusan: "TKJ",
-    userRole: "Siswa SMK • TKJ",
-  },
-};
+export async function login(nis: string, password: string): Promise<LoginResult> {
+  try {
+    const res = await fetch("/api/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ nis, password }),
+    });
 
-export function buildSession(id: string): Session {
-  const profile = mockUsers[id];
-  if (profile) {
-    return {
+    const data = (await res.json()) as Record<string, unknown>;
+
+    if (!res.ok) {
+      return {
+        ok: false,
+        error: typeof data.error === "string" ? data.error : "Gagal masuk. Silakan coba lagi.",
+      };
+    }
+
+    const nama = typeof data.namaLengkap === "string" ? data.namaLengkap : "Siswa";
+    const jurusan = typeof data.jurusan === "string" ? data.jurusan : "";
+    const rombel = typeof data.rombel === "string" ? data.rombel : "";
+
+    const session: Session = {
       role: "siswa",
-      nis: id,
-      nama: profile.nama,
-      initials: profile.initials,
-      jurusan: profile.jurusan,
-      userRole: profile.userRole,
+      nis: String(data.nis ?? ""),
+      nisn: String(data.nisn ?? ""),
+      nama,
+      kelas: String(data.kelas ?? ""),
+      jurusan,
+      rombel,
+      jenisKelamin: data.jenisKelamin === "P" ? "P" : "L",
+      email: typeof data.email === "string" ? data.email : "",
+      initials: nama
+        .split(" ")
+        .filter(Boolean)
+        .map((w: string) => w[0])
+        .slice(0, 2)
+        .join("")
+        .toUpperCase(),
+      userRole: `Siswa SMK • ${jurusan}${rombel ? ` • ${rombel}` : ""}`,
+    };
+
+    return { ok: true, session };
+  } catch {
+    return {
+      ok: false,
+      error: "Terjadi kesalahan koneksi. Periksa koneksimu lalu coba lagi.",
     };
   }
-  return { ...DEFAULT_SISWA, nis: id };
 }
 
 export function persistSession(session: Session) {

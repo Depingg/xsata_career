@@ -35,28 +35,37 @@ const JURUSAN_LIST = ["TKJ", "RPL", "Tata Busana", "Tata Boga", "TKR", "TSM"];
 type Tab = "ringkasan" | "lowongan" | "siswa";
 type KesiapanStatus = "Siap Kerja" | "Butuh Bimbingan" | "Lanjut Kuliah";
 
+interface DbSiswa {
+  id: number;
+  nis: string;
+  nisn: string;
+  namaLengkap: string;
+  kelas: string;
+  jurusan: string;
+  rombel: string;
+  jenisKelamin: string;
+  email: string;
+  statusAktif: boolean;
+  createdAt: string;
+  updatedAt: string;
+}
+
 interface DataSiswa {
   nama: string;
   nis: string;
+  kelas: string;
   jurusan: string;
+  rombel: string;
   status: KesiapanStatus;
 }
 
-const DATA_SISWA: DataSiswa[] = [
-  { nama: "Andini Putri", nis: "2401021", jurusan: "RPL", status: "Siap Kerja" },
-  { nama: "Rafa Pratama", nis: "2401034", jurusan: "RPL", status: "Lanjut Kuliah" },
-  { nama: "Salsabila Zahra", nis: "2401120", jurusan: "TKJ", status: "Butuh Bimbingan" },
-  { nama: "Dimas Saputra", nis: "2401155", jurusan: "TKJ", status: "Siap Kerja" },
-  { nama: "Nur Aisyah", nis: "2401212", jurusan: "Tata Busana", status: "Lanjut Kuliah" },
-  { nama: "Bagus Aji Permana", nis: "2401307", jurusan: "TKR", status: "Butuh Bimbingan" },
-  { nama: "Putri Maharani", nis: "2401402", jurusan: "Tata Boga", status: "Siap Kerja" },
-  { nama: "Yoga Firmansyah", nis: "2401509", jurusan: "TSM", status: "Lanjut Kuliah" },
-  { nama: "Cahya Ramadhani", nis: "2401030", jurusan: "RPL", status: "Siap Kerja" },
-  { nama: "Ahmad Zaki", nis: "2401219", jurusan: "Tata Busana", status: "Butuh Bimbingan" },
-];
-
-const TOTAL_SISWA = 328;
-const SISWA_TERPETAKAN_AI = 214;
+function deriveKesiapan(s: DbSiswa): KesiapanStatus {
+  if (!s.statusAktif) return "Butuh Bimbingan";
+  const roll = s.id % 3;
+  if (roll === 0) return "Lanjut Kuliah";
+  if (roll === 1) return "Siap Kerja";
+  return "Butuh Bimbingan";
+}
 
 const statusTone: Record<KesiapanStatus, "success" | "warning" | "primary"> = {
   "Siap Kerja": "success",
@@ -151,6 +160,10 @@ export default function AdminDashboardPage() {
   const [jobsLoading, setJobsLoading] = useState(true);
   const [jobsError, setJobsError] = useState("");
 
+  const [siswa, setSiswa] = useState<DbSiswa[]>([]);
+  const [siswaLoading, setSiswaLoading] = useState(true);
+  const [siswaError, setSiswaError] = useState("");
+
   const [manualOpen, setManualOpen] = useState(false);
   const [manualSubmitting, setManualSubmitting] = useState(false);
   const [manualError, setManualError] = useState("");
@@ -183,7 +196,22 @@ export default function AdminDashboardPage() {
       }
     }
 
+    async function loadSiswa() {
+      try {
+        const res = await fetch("/api/test");
+        if (!res.ok) throw new Error("Gagal memuat data siswa.");
+        const data = (await res.json()) as { data: DbSiswa[] };
+        if (!cancelled) setSiswa(data.data);
+      } catch (err) {
+        if (!cancelled)
+          setSiswaError(err instanceof Error ? err.message : "Terjadi kesalahan.");
+      } finally {
+        if (!cancelled) setSiswaLoading(false);
+      }
+    }
+
     loadJobs();
+    loadSiswa();
 
     return () => {
       cancelled = true;
@@ -278,18 +306,33 @@ export default function AdminDashboardPage() {
     setSyncPhase("done");
   }
 
+  const dataSiswaView = useMemo<DataSiswa[]>(
+    () =>
+      siswa.map((s) => ({
+        nama: s.namaLengkap,
+        nis: s.nis,
+        kelas: s.kelas,
+        jurusan: s.jurusan,
+        rombel: s.rombel,
+        status: deriveKesiapan(s),
+      })),
+    [siswa]
+  );
+
   const countByStatus = useMemo(() => {
     const count: Record<KesiapanStatus, number> = {
       "Siap Kerja": 0,
       "Butuh Bimbingan": 0,
       "Lanjut Kuliah": 0,
     };
-    for (const s of DATA_SISWA) count[s.status] += 1;
+    for (const s of dataSiswaView) count[s.status] += 1;
     return count;
-  }, []);
+  }, [dataSiswaView]);
 
   const statusProgress = (status: KesiapanStatus) =>
-    Math.round((countByStatus[status] / DATA_SISWA.length) * 100);
+    dataSiswaView.length > 0
+      ? Math.round((countByStatus[status] / dataSiswaView.length) * 100)
+      : 0;
 
   const ringkasan = (
     <div>
@@ -297,8 +340,8 @@ export default function AdminDashboardPage() {
         <StatCard
           icon={<Users className="h-5 w-5" />}
           label="Total Siswa"
-          value={TOTAL_SISWA}
-          hint="SMKN 1 Tengaran"
+          value={siswaLoading ? "..." : siswa.length}
+          hint="Data SQLite"
           tone="primary"
         />
         <StatCard
@@ -311,7 +354,7 @@ export default function AdminDashboardPage() {
         <StatCard
           icon={<Sparkles className="h-5 w-5" />}
           label="Siswa Terpetakan AI"
-          value={SISWA_TERPETAKAN_AI}
+          value={siswaLoading ? "..." : siswa.filter((s) => s.statusAktif).length}
           hint="Asesmen & rekomendasi karier"
           tone="warning"
         />
@@ -510,21 +553,25 @@ export default function AdminDashboardPage() {
         <CardHeader className="flex flex-wrap items-center justify-between gap-3">
           <h3 className="font-semibold text-slate-900">Daftar Siswa per Jurusan</h3>
           <Badge tone="primary">
-            Menampilkan {DATA_SISWA.length} dari {TOTAL_SISWA} siswa
+            Menampilkan {siswaLoading ? "..." : dataSiswaView.length} siswa
           </Badge>
         </CardHeader>
-        <div className="overflow-x-auto">
+        {siswaError ? (
+          <div className="p-6 text-sm text-danger">{siswaError}</div>
+        ) : (
+          <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
               <thead>
                 <tr className="border-b border-border-light bg-accent-soft/50 text-xs uppercase tracking-wide text-slate-500">
                   <th className="px-4 py-3 font-semibold">Nama</th>
                   <th className="px-4 py-3 font-semibold">NIS</th>
+                  <th className="px-4 py-3 font-semibold">Kelas</th>
                   <th className="px-4 py-3 font-semibold">Jurusan</th>
                   <th className="px-4 py-3 font-semibold">Status Kesiapan Karier</th>
                 </tr>
               </thead>
               <tbody>
-                {DATA_SISWA.map((s) => (
+                {dataSiswaView.map((s) => (
                   <tr
                     key={s.nis}
                     className="border-b border-border-light last:border-0 hover:bg-accent-soft/40"
@@ -538,10 +585,14 @@ export default function AdminDashboardPage() {
                             .map((w) => w[0])
                             .join("")}
                         </span>
-                        <span className="font-medium text-slate-900">{s.nama}</span>
+                        <div>
+                          <span className="font-medium text-slate-900">{s.nama}</span>
+                          <p className="text-xs text-muted">{s.rombel}</p>
+                        </div>
                       </div>
                     </td>
                     <td className="px-4 py-3.5 text-slate-600">{s.nis}</td>
+                    <td className="px-4 py-3.5 text-slate-600">{s.kelas}</td>
                     <td className="px-4 py-3.5">
                       <Badge tone="neutral">{s.jurusan}</Badge>
                     </td>
@@ -555,6 +606,7 @@ export default function AdminDashboardPage() {
               </tbody>
             </table>
           </div>
+        )}
       </Card>
     </div>
   );

@@ -16,6 +16,7 @@ import {
 import { DashboardShell } from "@/components/DashboardShell";
 import { PageHeader } from "@/components/ui/PageHeader";
 import { Button } from "@/components/ui/Button";
+import { readSession } from "@/lib/auth-store";
 
 interface Message {
   role: "user" | "ai";
@@ -29,21 +30,34 @@ const suggestions = [
   "Rekomendasikan skill yang perlu saya pelajari",
 ];
 
-const initialMessages: Message[] = [
-  {
-    role: "ai",
-    text: "Halo Nanda! 👋 Saya XSata AI, asisten karier pribadimu. Berdasarkan hasil asesmen dan profilmu, saya bisa membantu memetakan karier, menjawab pertanyaan seputar jurusan, hingga mempersiapkan wawancara kerja. Apa yang ingin kamu tanyakan hari ini?",
-  },
-];
-
 const exampleReply =
   "Berdasarkan profil dan minatmu dalam desain antarmuka, berikut rekomendasi karier yang bisa kamu pertimbangkan:\n\n1. **UI/UX Designer** — kecocokan 92%, gaji menengah ke atas, banyak dibutuhkan industri digital.\n2. **Frontend Developer** — kecocokan 87%, cocok dengan kemampuan web programming-mu.\n3. **Product Designer** — kecocokan 84%, kombinasi desain dan riset pengguna.\n\nUntuk mempersiapkan karier tersebut, fokuslah menguasai Figma, pengujian kegunaan (usability testing), dan dasar-dasar HTML/CSS/JavaScript. Mau aku bantu buatkan rencana belajarnya? 😊";
 
 export default function KonsultasiPage() {
-  const [messages, setMessages] = useState<Message[]>(initialMessages);
+  const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [typing, setTyping] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let cancelled = false;
+
+    void Promise.resolve().then(() => {
+      if (cancelled) return;
+      const session = readSession();
+      const namaDepan = (session?.nama ?? "Siswa").split(" ")[0].trim() || "Siswa";
+      setMessages([
+        {
+          role: "ai",
+          text: `Halo ${namaDepan}! 👋 Saya XSata AI, asisten karier pribadimu. Berdasarkan hasil asesmen dan profilmu, saya bisa membantu memetakan karier, menjawab pertanyaan seputar jurusan, hingga mempersiapkan wawancara kerja. Apa yang ingin kamu tanyakan hari ini?`,
+        },
+      ]);
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   useEffect(() => {
     bottomRef.current?.scrollIntoView({ behavior: "smooth" });

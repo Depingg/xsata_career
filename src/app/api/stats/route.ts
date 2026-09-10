@@ -1,16 +1,17 @@
 import { NextResponse } from "next/server";
-import { lokerStore } from "@/lib/loker-store";
-import { testimoniStore } from "@/lib/testimoni-store";
+import { prisma } from "@/lib/prisma";
 
 export async function GET() {
-  const loker = lokerStore.getAll();
-  const testimonials = testimoniStore.getAll();
+  const [lokerCount, testimonis] = await Promise.all([
+    prisma.loker.count(),
+    prisma.testimoni.findMany(),
+  ]);
 
   const kepuasan =
-    testimonials.length > 0
+    testimonis.length > 0
       ? Math.round(
-          (testimonials.reduce((sum, t) => sum + t.rating, 0) /
-            testimonials.length) *
+          (testimonis.reduce((sum, t) => sum + t.rating, 0) /
+            testimonis.length) *
             20
         )
       : null;
@@ -18,7 +19,7 @@ export async function GET() {
   return NextResponse.json({
     siswa: 0,
     mitra: 0,
-    lowongan: loker.length,
+    lowongan: lokerCount,
     kepuasan,
   });
 }

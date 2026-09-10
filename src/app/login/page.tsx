@@ -3,21 +3,22 @@
 import { useEffect, useState } from "react";
 import type { FormEvent } from "react";
 import { useRouter } from "next/navigation";
-import { IdCard, LogIn } from "lucide-react";
+import { IdCard, KeyRound, LogIn, Loader2 } from "lucide-react";
 import { AuthLayout } from "@/components/AuthLayout";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import {
-  buildSession,
+  login,
   persistSession,
   readSession,
 } from "@/lib/auth-store";
 
-const MIN_NIS = 6;
-
 export default function LoginPage() {
   const router = useRouter();
   const [nis, setNis] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -36,19 +37,29 @@ export default function LoginPage() {
     };
   }, [router]);
 
-  const canSubmit = nis.trim().length >= MIN_NIS;
+  const canSubmit = nis.trim().length >= 6 && password.trim().length > 0 && !submitting;
 
-  function handleChange(raw: string) {
+  function handleNisChange(raw: string) {
     setNis(raw.replace(/\D/g, ""));
+    setError("");
   }
 
-  function onSubmit(e: FormEvent) {
+  async function onSubmit(e: FormEvent) {
     e.preventDefault();
     if (!canSubmit) return;
 
-    const session = buildSession(nis.trim());
+    setSubmitting(true);
+    setError("");
 
-    persistSession(session);
+    const result = await login(nis.trim(), password);
+
+    if (!result.ok || !result.session) {
+      setError(result.error ?? "Gagal masuk. Silakan coba lagi.");
+      setSubmitting(false);
+      return;
+    }
+
+    persistSession(result.session);
     router.push("/");
   }
 
@@ -64,16 +75,39 @@ export default function LoginPage() {
           type="text"
           inputMode="numeric"
           autoComplete="off"
-          placeholder="Masukkan NIS kamu (mis. 12345678)"
+          placeholder="Masukkan NIS kamu (mis. 123456)"
           value={nis}
-          onChange={(e) => handleChange(e.target.value)}
+          onChange={(e) => handleNisChange(e.target.value)}
           icon={<IdCard className="h-4 w-4" />}
         />
 
+        <Input
+          label="Password"
+          id="password"
+          type="password"
+          autoComplete="current-password"
+          placeholder="Masukkan password kamu"
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError("");
+          }}
+          icon={<KeyRound className="h-4 w-4" />}
+        />
+
+        {error && (
+          <p
+            role="alert"
+            className="rounded-lg border border-danger/20 bg-danger/5 px-3 py-2 text-sm text-danger"
+          >
+            {error}
+          </p>
+        )}
+
         <p className="text-xs text-muted">
-          NIS umumnya terdiri dari 6–10 digit angka.{" "}
-          <span className={nis.length >= MIN_NIS ? "text-success" : "text-slate-400"}>
-            {nis.length}/{MIN_NIS} digit minimal.
+          NIS umumnya terdiri dari 6 digit angka.{" "}
+          <span className={nis.length >= 6 ? "text-success" : "text-slate-400"}>
+            {nis.length}/6 digit minimal.
           </span>
         </p>
 
@@ -84,8 +118,12 @@ export default function LoginPage() {
           type="submit"
           disabled={!canSubmit}
         >
-          <LogIn className="h-4 w-4" />
-          Masuk
+          {submitting ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <LogIn className="h-4 w-4" />
+          )}
+          {submitting ? "Memeriksa..." : "Masuk"}
         </Button>
       </form>
     </AuthLayout>

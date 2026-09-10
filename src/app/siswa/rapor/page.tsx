@@ -25,12 +25,14 @@ import { Button } from "@/components/ui/Button";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { EmptyState } from "@/components/ui/EmptyState";
 
-const student = {
-  name: "Nanda",
-  kelas: "XII TKJ 1",
-  jurusan: "Teknik Komputer dan Jaringan (TKJ)",
-  nis: "12345678",
-};
+interface StudentInfo {
+  name: string;
+  kelas: string;
+  jurusan: string;
+  nis: string;
+}
+
+const student: StudentInfo = { name: "", kelas: "", jurusan: "", nis: "" };
 
 const communicationScore: number | null = null;
 
@@ -64,12 +66,10 @@ export default function InterviewRaporPage() {
       const session = readSession();
       if (session) {
         setCurrentStudent({
-          name: session.nama || student.name,
-          kelas: session.jurusan ? `XII ${session.jurusan} 1` : student.kelas,
-          jurusan: session.jurusan
-            ? `Jurusan ${session.jurusan}`
-            : student.jurusan,
-          nis: session.nis || student.nis,
+          name: session.nama,
+          kelas: session.rombel,
+          jurusan: session.jurusan,
+          nis: session.nis,
         });
       }
     });
