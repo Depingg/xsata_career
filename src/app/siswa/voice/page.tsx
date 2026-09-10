@@ -159,7 +159,7 @@ export default function VoiceConsultationPage() {
   return (
     <DashboardShell role="siswa">
       <PageHeader
-        title="Guru BK Virtual"
+        title="AI Voice Konsultasi"
         description="Sesi percakapan suara secara langsung dengan AI Karier — ucapkan pertanyaanmu, AI akan merespons lisan."
       />
 
